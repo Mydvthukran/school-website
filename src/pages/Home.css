@@ -178,6 +178,8 @@
   position: relative;
   border-radius: var(--radius-lg);
   z-index: 1;
+  max-width: 380px;
+  margin: 0 auto;
 }
 
 .director-image {
