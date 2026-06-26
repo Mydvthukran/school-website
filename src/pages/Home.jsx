@@ -1,6 +1,6 @@
 import Hero from '../components/Hero';
 import Card from '../components/Card';
-import { dummyNews, dummyStats } from '../data/dummy';
+import { dummyNews, dummyStats, dummyGallery } from '../data/dummy';
 import { ArrowRight, GraduationCap, Users, Trophy } from 'lucide-react';
 import './Home.css';
 import { Link } from 'react-router-dom';
@@ -81,6 +81,25 @@ const Home = () => {
             <Link to="/about" className="btn btn-primary">
               View All News <ArrowRight size={20} />
             </Link>
+          </div>
+        </div>
+      </section>
+      {/* Gallery Section */}
+      <section className="section bg-light gallery-section">
+        <div className="container">
+          <div className="section-title">
+            <h2>Our Photo Gallery</h2>
+            <p>A glimpse into the vibrant life at Saraswati Vidya Sr Sec School.</p>
+          </div>
+          <div className="gallery-grid">
+            {dummyGallery.map((item) => (
+              <div key={item.id} className="gallery-item">
+                <img src={item.imageUrl} alt={item.title} className="gallery-image" />
+                <div className="gallery-overlay">
+                  <h4>{item.title}</h4>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>

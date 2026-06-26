@@ -103,3 +103,36 @@ export const dummyStats = [
   { label: "Clubs & Activities", value: "40+" },
   { label: "College Acceptance", value: "98%" },
 ];
+
+export const dummyGallery = [
+  {
+    id: 1,
+    title: "Annual Sports Day",
+    imageUrl: "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    id: 2,
+    title: "Science Exhibition",
+    imageUrl: "https://images.unsplash.com/photo-1564426225274-124b172a6e60?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    id: 3,
+    title: "Cultural Festival",
+    imageUrl: "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    id: 4,
+    title: "Library Study Time",
+    imageUrl: "https://images.unsplash.com/photo-1568667256549-094345857637?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    id: 5,
+    title: "Computer Lab Session",
+    imageUrl: "https://images.unsplash.com/photo-1571260899304-4250701120a6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    id: 6,
+    title: "Art Class",
+    imageUrl: "https://images.unsplash.com/photo-1513364776144-60967b0f800f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+  }
+];
