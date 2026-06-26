@@ -3,6 +3,7 @@ import { dummyStats, dummyGallery, directorMessage } from '../data/dummy';
 import { GraduationCap, Users, Trophy, Quote } from 'lucide-react';
 import './Home.css';
 import { Link } from 'react-router-dom';
+import heroHomeImage from '../assets/hero-home.png';
 
 const Home = () => {
   return (
@@ -10,7 +11,7 @@ const Home = () => {
       <Hero 
         title="Welcome to Saraswati Vidya Sr Sec School"
         subtitle="Empowering the next generation of leaders through excellence in education, character development, and global perspective."
-        imageUrl="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80"
+        imageUrl={heroHomeImage}
         primaryBtnText="Discover More"
         primaryBtnLink="/about"
         secondaryBtnText="Apply Now"
