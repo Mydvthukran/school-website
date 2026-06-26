@@ -40,9 +40,15 @@
 }
 
 .stat-value {
-  font-size: 2.5rem;
+  font-size: 1.8rem;
   color: var(--color-secondary);
   margin-bottom: 0.5rem;
+}
+
+@media (min-width: 768px) {
+  .stat-value {
+    font-size: 2.5rem;
+  }
 }
 
 .stat-label {
@@ -58,11 +64,17 @@
 
 .feature-card {
   background-color: white;
-  padding: 2.5rem;
+  padding: 1.5rem;
   border-radius: var(--radius-lg);
   text-align: center;
   box-shadow: var(--shadow-sm);
   transition: var(--transition);
+}
+
+@media (min-width: 768px) {
+  .feature-card {
+    padding: 2.5rem;
+  }
 }
 
 .feature-card:hover {
@@ -113,8 +125,14 @@
   position: relative;
   border-radius: var(--radius-lg);
   overflow: hidden;
-  height: 250px;
+  height: 200px;
   cursor: pointer;
+}
+
+@media (min-width: 768px) {
+  .gallery-item {
+    height: 250px;
+  }
 }
 
 .gallery-image {
@@ -178,8 +196,14 @@
   position: relative;
   border-radius: var(--radius-lg);
   z-index: 1;
-  max-width: 380px;
+  max-width: 250px;
   margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .director-image-wrapper {
+    max-width: 380px;
+  }
 }
 
 .director-image {
@@ -214,9 +238,15 @@
 }
 
 .director-title {
-  font-size: 2rem;
+  font-size: 1.5rem;
   margin-bottom: 1.5rem;
   color: var(--color-text);
+}
+
+@media (min-width: 768px) {
+  .director-title {
+    font-size: 2rem;
+  }
 }
 
 .director-text {
