@@ -101,6 +101,20 @@ const Contact = () => {
           </div>
         </div>
       </section>
+
+      {/* Map Section */}
+      <section style={{ width: '100%', height: '400px', backgroundColor: '#e2e8f0' }}>
+        <iframe 
+          title="School Location Map"
+          width="100%" 
+          height="100%" 
+          style={{ border: 0 }} 
+          loading="lazy" 
+          allowFullScreen 
+          referrerPolicy="no-referrer-when-downgrade" 
+          src="https://maps.google.com/maps?q=3GJ2%2B4G5%2C%20Haryana%20123412&t=&z=15&ie=UTF8&iwloc=&output=embed">
+        </iframe>
+      </section>
     </div>
   );
 };
