@@ -136,3 +136,10 @@ export const dummyGallery = [
     imageUrl: "https://images.unsplash.com/photo-1513364776144-60967b0f800f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
   }
 ];
+
+export const directorMessage = {
+  name: "Dr. A.K. Sharma",
+  title: "Director, Saraswati Vidya Sr Sec School",
+  message: "Education is not merely the filling of a pail, but the lighting of a fire. At Saraswati Vidya Sr Sec School, our goal is to ignite that spark of curiosity in every child. We are committed to providing a holistic education that empowers our students to be compassionate, innovative, and resilient leaders of tomorrow. Our dedicated faculty works tirelessly to create an environment where every student is encouraged to reach their full potential, both academically and personally.",
+  imageUrl: "https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+};

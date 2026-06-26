@@ -1,7 +1,7 @@
 import Hero from '../components/Hero';
 import Card from '../components/Card';
-import { dummyNews, dummyStats, dummyGallery } from '../data/dummy';
-import { ArrowRight, GraduationCap, Users, Trophy } from 'lucide-react';
+import { dummyNews, dummyStats, dummyGallery, directorMessage } from '../data/dummy';
+import { ArrowRight, GraduationCap, Users, Trophy, Quote } from 'lucide-react';
 import './Home.css';
 import { Link } from 'react-router-dom';
 
@@ -28,6 +28,27 @@ const Home = () => {
                 <p className="stat-label">{stat.label}</p>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Director Message Section */}
+      <section className="section director-section">
+        <div className="container">
+          <div className="director-container">
+            <div className="director-image-wrapper">
+              <img src={directorMessage.imageUrl} alt={directorMessage.name} className="director-image" />
+              <div className="director-image-decoration"></div>
+            </div>
+            <div className="director-content">
+              <Quote className="quote-icon" size={48} />
+              <h2 className="director-title">Message from the Director</h2>
+              <p className="director-text">{directorMessage.message}</p>
+              <div className="director-author">
+                <h4>{directorMessage.name}</h4>
+                <p>{directorMessage.title}</p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
