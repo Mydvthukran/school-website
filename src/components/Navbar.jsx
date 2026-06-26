@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, BookOpen } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import './Navbar.css';
+import logo from '../assets/logo.png';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -24,7 +25,7 @@ const Navbar = () => {
     <header className="navbar-container glass">
       <div className="container navbar">
         <Link to="/" className="logo" onClick={closeMenu}>
-          <BookOpen className="logo-icon" size={32} />
+          <img src={logo} alt="School Logo" className="logo-icon" style={{ height: '40px', width: 'auto' }} />
           <span className="logo-text">Saraswati Vidya Sr Sec School</span>
         </Link>
 

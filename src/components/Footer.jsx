@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
-import { BookOpen, MapPin, Phone, Mail, Globe, MessageCircle, Share2 } from 'lucide-react';
+import { MapPin, Phone, Mail, Globe, MessageCircle, Share2 } from 'lucide-react';
 import './Footer.css';
+import logo from '../assets/logo.png';
 
 const Footer = () => {
   return (
@@ -8,7 +9,7 @@ const Footer = () => {
       <div className="container footer-grid">
         <div className="footer-col">
           <Link to="/" className="footer-logo">
-            <BookOpen size={32} />
+            <img src={logo} alt="School Logo" style={{ height: '40px', width: 'auto' }} />
             <span className="logo-text">Saraswati Vidya Sr Sec School</span>
           </Link>
           <p className="footer-desc">
