@@ -41,7 +41,7 @@ const Home = () => {
               <div className="director-image-decoration"></div>
             </div>
             <div className="director-content">
-              <Quote className="quote-icon" size={48} />
+              <Quote className="quote-icon" size={32} />
               <h2 className="director-title">Message from the Director</h2>
               <p className="director-text">{directorMessage.message}</p>
               <div className="director-author">
@@ -62,17 +62,17 @@ const Home = () => {
           </div>
           <div className="grid-3">
             <div className="feature-card">
-              <div className="feature-icon"><GraduationCap size={40} /></div>
+              <div className="feature-icon"><GraduationCap size={24} /></div>
               <h3>Academic Excellence</h3>
               <p>Rigorous curriculum designed to challenge and inspire students to reach their highest potential.</p>
             </div>
             <div className="feature-card">
-              <div className="feature-icon"><Users size={40} /></div>
+              <div className="feature-icon"><Users size={24} /></div>
               <h3>Expert Faculty</h3>
               <p>Our teachers are industry professionals and passionate educators dedicated to student success.</p>
             </div>
             <div className="feature-card">
-              <div className="feature-icon"><Trophy size={40} /></div>
+              <div className="feature-icon"><Trophy size={24} /></div>
               <h3>Holistic Development</h3>
               <p>Extensive extracurricular programs in sports, arts, and technology to build well-rounded individuals.</p>
             </div>
