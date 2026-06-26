@@ -72,7 +72,13 @@ ul {
   width: 100%;
   max-width: var(--container-max);
   margin: 0 auto;
-  padding: 0 1.5rem;
+  padding: 0 1rem;
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding: 0 1.5rem;
+  }
 }
 
 .section {
@@ -152,7 +158,13 @@ ul {
 /* Section Titles */
 .section-title {
   text-align: center;
-  margin-bottom: 3rem;
+  margin-bottom: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .section-title {
+    margin-bottom: 3rem;
+  }
 }
 
 .section-title h2 {
@@ -171,6 +183,13 @@ ul {
   color: var(--color-text-muted);
   max-width: 600px;
   margin: 0 auto;
+  font-size: 0.9rem;
+}
+
+@media (min-width: 768px) {
+  .section-title p {
+    font-size: 1rem;
+  }
 }
 
 /* Grid Layouts */
@@ -188,14 +207,14 @@ ul {
 
 .grid-4 {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 2rem;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
 }
 
 @media (min-width: 768px) {
   .grid-2 { grid-template-columns: repeat(2, 1fr); }
   .grid-3 { grid-template-columns: repeat(2, 1fr); }
-  .grid-4 { grid-template-columns: repeat(2, 1fr); }
+  .grid-4 { grid-template-columns: repeat(2, 1fr); gap: 2rem; }
 }
 
 @media (min-width: 1024px) {

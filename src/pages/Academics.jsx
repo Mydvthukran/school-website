@@ -29,7 +29,7 @@ const Academics = () => {
             {dummyPrograms.map((program) => (
               <div key={program.id} style={{ 
                 backgroundColor: 'white', 
-                padding: '2rem', 
+                padding: '1.5rem', 
                 borderRadius: 'var(--radius-lg)',
                 boxShadow: 'var(--shadow-md)',
                 display: 'flex',
@@ -50,8 +50,8 @@ const Academics = () => {
                   {iconMap[program.icon]}
                 </div>
                 <div>
-                  <h3 style={{ fontSize: '1.5rem', marginBottom: '0.75rem', color: 'var(--color-text-main)' }}>{program.title}</h3>
-                  <p style={{ color: 'var(--color-text-muted)', lineHeight: 1.6 }}>{program.description}</p>
+                  <h3 style={{ fontSize: '1.2rem', marginBottom: '0.5rem', color: 'var(--color-text-main)' }}>{program.title}</h3>
+                  <p style={{ color: 'var(--color-text-muted)', lineHeight: 1.6, fontSize: '0.9rem' }}>{program.description}</p>
                 </div>
               </div>
             ))}
@@ -64,7 +64,7 @@ const Academics = () => {
           <div className="section-title">
             <h2>Curriculum Overview</h2>
           </div>
-          <div style={{ maxWidth: '800px', margin: '0 auto', backgroundColor: 'white', padding: '3rem', borderRadius: 'var(--radius-lg)', boxShadow: 'var(--shadow-sm)' }}>
+          <div style={{ maxWidth: '800px', margin: '0 auto', backgroundColor: 'white', padding: '1.5rem', borderRadius: 'var(--radius-lg)', boxShadow: 'var(--shadow-sm)' }}>
             <h3 style={{ marginBottom: '1rem', color: 'var(--color-primary)' }}>Middle School (Grades 6-8)</h3>
             <p style={{ color: 'var(--color-text-muted)', marginBottom: '2rem' }}>
               Our middle school curriculum focuses on building strong foundational skills in mathematics, sciences, and humanities, while encouraging exploratory learning and critical thinking.

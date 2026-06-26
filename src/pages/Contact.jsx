@@ -12,16 +12,16 @@ const Contact = () => {
 
       <section className="section">
         <div className="container">
-          <div className="grid-2" style={{ gap: '4rem' }}>
+          <div className="grid-2" style={{ gap: '2rem' }}>
             
             {/* Contact Information */}
             <div>
-              <h2 style={{ fontSize: '2.5rem', marginBottom: '1.5rem', color: 'var(--color-primary)' }}>Get In Touch</h2>
-              <p style={{ color: 'var(--color-text-muted)', marginBottom: '3rem' }}>
+              <h2 style={{ fontSize: '1.8rem', marginBottom: '1rem', color: 'var(--color-primary)' }}>Get In Touch</h2>
+              <p style={{ color: 'var(--color-text-muted)', marginBottom: '2rem', fontSize: '0.95rem' }}>
                 Whether you're a prospective parent, a current student, or a proud alumni, we'd love to hear from you.
               </p>
               
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
                 <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'flex-start' }}>
                   <div style={{ backgroundColor: 'rgba(30, 58, 138, 0.1)', color: 'var(--color-primary)', padding: '1rem', borderRadius: '50%' }}>
                     <MapPin size={24} />
@@ -65,8 +65,8 @@ const Contact = () => {
             </div>
 
             {/* Contact Form */}
-            <div style={{ backgroundColor: 'var(--color-bg-light)', padding: '3rem', borderRadius: 'var(--radius-lg)', boxShadow: 'var(--shadow-sm)' }}>
-              <h3 style={{ fontSize: '1.8rem', marginBottom: '2rem', color: 'var(--color-primary)' }}>Send a Message</h3>
+            <div style={{ backgroundColor: 'var(--color-bg-light)', padding: '1.5rem', borderRadius: 'var(--radius-lg)', boxShadow: 'var(--shadow-sm)' }}>
+              <h3 style={{ fontSize: '1.4rem', marginBottom: '1.5rem', color: 'var(--color-primary)' }}>Send a Message</h3>
               <form onSubmit={(e) => e.preventDefault()} style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                   <label htmlFor="name" style={{ fontWeight: '500' }}>Full Name</label>
@@ -103,7 +103,7 @@ const Contact = () => {
       </section>
 
       {/* Map Section */}
-      <section style={{ width: '100%', height: '400px', backgroundColor: '#e2e8f0' }}>
+      <section style={{ width: '100%', height: '300px', backgroundColor: '#e2e8f0' }}>
         <iframe 
           title="School Location Map"
           width="100%" 
