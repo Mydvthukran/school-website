@@ -72,7 +72,7 @@ const Academics = () => {
             
             <h3 style={{ marginBottom: '1rem', color: 'var(--color-primary)' }}>High School (Grades 9-12)</h3>
             <p style={{ color: 'var(--color-text-muted)' }}>
-              The high school program offers rigorous Advanced Placement (AP) courses, specialized electives, and a comprehensive college preparatory track to ensure students are ready for top universities worldwide.
+              The high school program offers rigorous Advanced Placement (AP) courses, specialized electives, and a comprehensive higher education preparatory track to ensure students are ready for top universities worldwide.
             </p>
           </div>
         </div>

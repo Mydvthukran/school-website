@@ -101,7 +101,7 @@ export const dummyStats = [
   { label: "Students", value: "1,200+" },
   { label: "Faculty Members", value: "85" },
   { label: "Clubs & Activities", value: "40+" },
-  { label: "College Acceptance", value: "98%" },
+  { label: "Board Exam Passing", value: "98%" },
 ];
 
 export const dummyGallery = [
