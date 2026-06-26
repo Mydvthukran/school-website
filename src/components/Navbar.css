@@ -32,12 +32,29 @@
   transform: translateY(-1px);
 }
 
+.logo-icon {
+  height: 40px;
+  width: auto;
+}
+
+@media (min-width: 768px) {
+  .logo-icon {
+    height: 60px;
+  }
+}
+
 .logo-text {
   font-family: var(--font-heading);
-  font-size: 1.4rem;
+  font-size: 1.1rem;
   font-weight: 800;
   letter-spacing: -0.5px;
   color: #1e3a8a; /* Deep blue to make it pop */
+}
+
+@media (min-width: 768px) {
+  .logo-text {
+    font-size: 1.4rem;
+  }
 }
 
 .desktop-nav {
@@ -102,7 +119,7 @@
 
 .mobile-nav {
   position: absolute;
-  top: 80px;
+  top: 90px;
   left: 0;
   width: 100%;
   background-color: var(--color-surface-light);

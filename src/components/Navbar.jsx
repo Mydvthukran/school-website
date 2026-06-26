@@ -25,7 +25,7 @@ const Navbar = () => {
     <header className="navbar-container glass">
       <div className="container navbar">
         <Link to="/" className="logo" onClick={closeMenu}>
-          <img src={logo} alt="School Logo" className="logo-icon" style={{ height: '60px', width: 'auto' }} />
+          <img src={logo} alt="School Logo" className="logo-icon" />
           <span className="logo-text">Saraswati Vidya Sr Sec School</span>
         </Link>
 
