@@ -6,59 +6,66 @@ import logo from '../assets/logo.png';
 const Footer = () => {
   return (
     <footer className="footer">
-      <div className="container footer-grid">
-        <div className="footer-col">
+      <div className="container">
+        {/* Top Row: Logo + Description + Social */}
+        <div className="footer-top">
           <Link to="/" className="footer-logo">
-            <img src={logo} alt="School Logo" style={{ height: '40px', width: 'auto' }} />
+            <img src={logo} alt="School Logo" className="footer-logo-img" />
             <span className="logo-text">Saraswati Vidya Sr Sec School</span>
           </Link>
           <p className="footer-desc">
-            Empowering students to reach their highest potential through excellence in education, character development, and community engagement.
+            Empowering students through excellence in education and character development.
           </p>
           <div className="social-links">
-            <a href="#" aria-label="Website"><Globe size={20} /></a>
-            <a href="#" aria-label="Contact"><MessageCircle size={20} /></a>
-            <a href="#" aria-label="Share"><Share2 size={20} /></a>
+            <a href="#" aria-label="Website"><Globe size={18} /></a>
+            <a href="#" aria-label="Contact"><MessageCircle size={18} /></a>
+            <a href="#" aria-label="Share"><Share2 size={18} /></a>
           </div>
         </div>
 
-        <div className="footer-col">
-          <h3>Quick Links</h3>
-          <ul className="footer-links">
-            <li><Link to="/about">About Us</Link></li>
-            <li><Link to="/academics">Academics</Link></li>
-            <li><Link to="/admissions">Admissions</Link></li>
-            <li><Link to="/contact">Contact</Link></li>
-          </ul>
+        {/* Middle Row: Links side by side */}
+        <div className="footer-links-row">
+          <div className="footer-col">
+            <h3>Quick Links</h3>
+            <ul className="footer-links">
+              <li><Link to="/about">About Us</Link></li>
+              <li><Link to="/academics">Academics</Link></li>
+              <li><Link to="/admissions">Admissions</Link></li>
+              <li><Link to="/contact">Contact</Link></li>
+            </ul>
+          </div>
+
+          <div className="footer-col">
+            <h3>Programs</h3>
+            <ul className="footer-links">
+              <li><Link to="/academics">Advanced Sciences</Link></li>
+              <li><Link to="/academics">Performing Arts</Link></li>
+              <li><Link to="/academics">Global Athletics</Link></li>
+              <li><Link to="/academics">Digital Innovation</Link></li>
+            </ul>
+          </div>
         </div>
 
-        <div className="footer-col">
-          <h3>Programs</h3>
-          <ul className="footer-links">
-            <li><Link to="/academics">Advanced Sciences</Link></li>
-            <li><Link to="/academics">Performing Arts</Link></li>
-            <li><Link to="/academics">Global Athletics</Link></li>
-            <li><Link to="/academics">Digital Innovation</Link></li>
-          </ul>
-        </div>
-
-        <div className="footer-col">
-          <h3>Contact Us</h3>
-          <ul className="contact-info">
-            <li>
-              <MapPin size={18} />
-              <span>123 Education Lane, Learning City, ED 45678</span>
-            </li>
-            <li>
-              <Phone size={18} />
-              <span>(555) 123-4567</span>
-            </li>
-            <li>
-              <Mail size={18} />
-              <span>info@saraswatividya.edu</span>
-            </li>
-          </ul>
-          <div style={{ marginTop: '1.5rem', borderRadius: '8px', overflow: 'hidden', height: '150px' }}>
+        {/* Bottom Row: Contact + Map side by side */}
+        <div className="footer-contact-row">
+          <div className="footer-col">
+            <h3>Contact Us</h3>
+            <ul className="contact-info">
+              <li>
+                <MapPin size={16} />
+                <span>Tankri, Haryana 123412</span>
+              </li>
+              <li>
+                <Phone size={16} />
+                <span>(555) 123-4567</span>
+              </li>
+              <li>
+                <Mail size={16} />
+                <span>info@saraswatividya.edu</span>
+              </li>
+            </ul>
+          </div>
+          <div className="footer-map">
             <iframe 
               title="Saraswati Vidya School Location"
               width="100%" 
@@ -72,6 +79,7 @@ const Footer = () => {
           </div>
         </div>
       </div>
+
       <div className="footer-bottom">
         <div className="container">
           <p>&copy; {new Date().getFullYear()} Saraswati Vidya Sr Sec School, Tankri. All rights reserved.</p>
