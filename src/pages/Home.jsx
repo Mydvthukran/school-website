@@ -1,7 +1,6 @@
 import Hero from '../components/Hero';
-import Card from '../components/Card';
-import { dummyNews, dummyStats, dummyGallery, directorMessage } from '../data/dummy';
-import { ArrowRight, GraduationCap, Users, Trophy, Quote } from 'lucide-react';
+import { dummyStats, dummyGallery, directorMessage } from '../data/dummy';
+import { GraduationCap, Users, Trophy, Quote } from 'lucide-react';
 import './Home.css';
 import { Link } from 'react-router-dom';
 
@@ -80,31 +79,7 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Latest News */}
-      <section className="section">
-        <div className="container">
-          <div className="section-title">
-            <h2>Latest News & Events</h2>
-            <p>Stay updated with the latest happenings at Saraswati Vidya Sr Sec School, Tankri.</p>
-          </div>
-          <div className="grid-3">
-            {dummyNews.map((news) => (
-              <Card 
-                key={news.id}
-                title={news.title}
-                excerpt={news.excerpt}
-                date={news.date}
-                imageUrl={news.imageUrl}
-              />
-            ))}
-          </div>
-          <div className="text-center" style={{ marginTop: '3rem' }}>
-            <Link to="/about" className="btn btn-primary">
-              View All News <ArrowRight size={20} />
-            </Link>
-          </div>
-        </div>
-      </section>
+
       {/* Gallery Section */}
       <section className="section bg-light gallery-section">
         <div className="container">
