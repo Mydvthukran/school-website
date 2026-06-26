@@ -57,6 +57,18 @@ const Footer = () => {
               <span>info@saraswatividya.edu</span>
             </li>
           </ul>
+          <div style={{ marginTop: '1.5rem', borderRadius: '8px', overflow: 'hidden', height: '150px' }}>
+            <iframe 
+              title="Saraswati Vidya School Location"
+              width="100%" 
+              height="100%" 
+              style={{ border: 0 }} 
+              loading="lazy" 
+              allowFullScreen 
+              referrerPolicy="no-referrer-when-downgrade" 
+              src="https://maps.google.com/maps?q=Saraswati+Vidya+School,+Tankri&t=&z=14&ie=UTF8&iwloc=&output=embed">
+            </iframe>
+          </div>
         </div>
       </div>
       <div className="footer-bottom">

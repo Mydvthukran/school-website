@@ -112,7 +112,7 @@ const Contact = () => {
           loading="lazy" 
           allowFullScreen 
           referrerPolicy="no-referrer-when-downgrade" 
-          src="https://maps.google.com/maps?q=3GJ2%2B4G5%2C%20Haryana%20123412&t=&z=15&ie=UTF8&iwloc=&output=embed">
+          src="https://maps.google.com/maps?q=Saraswati+Vidya+School,+Tankri&t=&z=15&ie=UTF8&iwloc=&output=embed">
         </iframe>
       </section>
     </div>
