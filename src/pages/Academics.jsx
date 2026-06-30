@@ -62,18 +62,48 @@ const Academics = () => {
       <section className="section bg-light">
         <div className="container">
           <div className="section-title">
-            <h2>Curriculum Overview</h2>
+            <h2>Our Learning Approach</h2>
+            <p>We believe in a dynamic, student-centered approach to education that goes beyond traditional textbooks.</p>
           </div>
-          <div style={{ maxWidth: '800px', margin: '0 auto', backgroundColor: 'white', padding: '1.5rem', borderRadius: 'var(--radius-lg)', boxShadow: 'var(--shadow-sm)' }}>
-            <h3 style={{ marginBottom: '1rem', color: 'var(--color-primary)' }}>Middle School (Grades 6-8)</h3>
-            <p style={{ color: 'var(--color-text-muted)', marginBottom: '2rem' }}>
-              Our middle school curriculum focuses on building strong foundational skills in mathematics, sciences, and humanities, while encouraging exploratory learning and critical thinking.
-            </p>
-            
-            <h3 style={{ marginBottom: '1rem', color: 'var(--color-primary)' }}>High School (Grades 9-12)</h3>
-            <p style={{ color: 'var(--color-text-muted)' }}>
-              The high school program offers rigorous Advanced Placement (AP) courses, specialized electives, and a comprehensive higher education preparatory track to ensure students are ready for top universities worldwide.
-            </p>
+          <div className="grid-3">
+            {[
+              { 
+                title: "Project-Based Learning", 
+                desc: "Students tackle real-world problems, fostering critical thinking, collaboration, and practical application of knowledge." 
+              },
+              { 
+                title: "Personalized Support", 
+                desc: "Small class sizes allow our educators to tailor instruction to meet the unique needs and learning styles of every student." 
+              },
+              { 
+                title: "Technology Integration", 
+                desc: "Seamlessly incorporating the latest digital tools to enhance learning experiences and prepare students for a tech-driven future." 
+              }
+            ].map((item, idx) => (
+              <div 
+                key={idx} 
+                style={{ 
+                  backgroundColor: 'white', 
+                  padding: '2.5rem 2rem', 
+                  borderRadius: 'var(--radius-lg)',
+                  boxShadow: 'var(--shadow-sm)',
+                  transition: 'var(--transition)',
+                  textAlign: 'left'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'translateY(-8px)';
+                  e.currentTarget.style.boxShadow = 'var(--shadow-lg)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.boxShadow = 'var(--shadow-sm)';
+                }}
+              >
+                <div style={{ width: '50px', height: '4px', backgroundColor: 'var(--color-primary)', marginBottom: '1.5rem', borderRadius: '2px' }}></div>
+                <h3 style={{ fontSize: '1.25rem', marginBottom: '1rem', color: 'var(--color-text-main)' }}>{item.title}</h3>
+                <p style={{ color: 'var(--color-text-muted)', lineHeight: '1.7', fontSize: '0.95rem' }}>{item.desc}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
