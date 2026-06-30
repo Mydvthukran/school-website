@@ -1,5 +1,5 @@
 import Hero from '../components/Hero';
-import { dummyStats, dummyGallery, directorMessage } from '../data/dummy';
+import { dummyStats, dummyGallery, directorMessage, principalMessage } from '../data/dummy';
 import { GraduationCap, Users, Trophy, Quote } from 'lucide-react';
 import './Home.css';
 import { Link } from 'react-router-dom';
@@ -53,8 +53,29 @@ const Home = () => {
         </div>
       </section>
 
+      {/* Principal Message Section */}
+      <section className="section director-section bg-light">
+        <div className="container">
+          <div className="director-container" style={{ direction: 'rtl' }}>
+            <div className="director-image-wrapper" style={{ direction: 'ltr' }}>
+              <img src={principalMessage.imageUrl} alt={principalMessage.name} className="director-image" />
+              <div className="director-image-decoration"></div>
+            </div>
+            <div className="director-content" style={{ direction: 'ltr' }}>
+              <Quote className="quote-icon" size={32} />
+              <h2 className="director-title">Message from the Principal</h2>
+              <p className="director-text">{principalMessage.message}</p>
+              <div className="director-author">
+                <h4>{principalMessage.name}</h4>
+                <p>{principalMessage.title}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Quick Links / Features */}
-      <section className="section features-section bg-light">
+      <section className="section features-section">
         <div className="container">
           <div className="section-title">
             <h2>Why Choose Us?</h2>
