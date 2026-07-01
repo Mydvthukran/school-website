@@ -1,6 +1,6 @@
 import Hero from '../components/Hero';
 import { Target, Eye, Shield, Heart, Lightbulb, Globe } from 'lucide-react';
-import '../pages/Home.css'; // Importing for feature-card styles if needed, though they might be global depending on setup
+import './Home.css'; // Importing for feature-card styles
 
 const About = () => {
   return (

@@ -2,7 +2,6 @@ import Hero from '../components/Hero';
 import { dummyStats, dummyGallery, directorMessage, principalMessage } from '../data/dummy';
 import { GraduationCap, Users, Trophy, Quote } from 'lucide-react';
 import './Home.css';
-import { Link } from 'react-router-dom';
 import heroHomeImage from '../assets/hero-home.png';
 
 const Home = () => {
