@@ -1,3 +1,14 @@
+import directorPic from '../assets/director pic/director.png';
+import principlePic from '../assets/principle pic/principle.png';
+import gallery1 from '../assets/gallary/Screenshot 2026-07-03 215527.png';
+import gallery2 from '../assets/gallary/Screenshot 2026-07-03 215535.png';
+import gallery3 from '../assets/gallary/Screenshot 2026-07-03 215542.png';
+import gallery4 from '../assets/gallary/Screenshot 2026-07-03 215553.png';
+import gallery5 from '../assets/gallary/Screenshot 2026-07-03 215600.png';
+import gallery6 from '../assets/gallary/Screenshot 2026-07-03 215610.png';
+import gallery7 from '../assets/gallary/Screenshot 2026-07-03 215619.png';
+import gallery8 from '../assets/gallary/Screenshot 2026-07-03 215630.png';
+
 export const dummyNews = [
   {
     id: 1,
@@ -108,32 +119,42 @@ export const dummyGallery = [
   {
     id: 1,
     title: "Annual Sports Day",
-    imageUrl: "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+    imageUrl: gallery1
   },
   {
     id: 2,
     title: "Science Exhibition",
-    imageUrl: "https://images.unsplash.com/photo-1564426225274-124b172a6e60?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+    imageUrl: gallery2
   },
   {
     id: 3,
     title: "Cultural Festival",
-    imageUrl: "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+    imageUrl: gallery3
   },
   {
     id: 4,
     title: "Library Study Time",
-    imageUrl: "https://images.unsplash.com/photo-1568667256549-094345857637?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+    imageUrl: gallery4
   },
   {
     id: 5,
     title: "Computer Lab Session",
-    imageUrl: "https://images.unsplash.com/photo-1571260899304-4250701120a6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+    imageUrl: gallery5
   },
   {
     id: 6,
     title: "Art Class",
-    imageUrl: "https://images.unsplash.com/photo-1513364776144-60967b0f800f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+    imageUrl: gallery6
+  },
+  {
+    id: 7,
+    title: "Campus View",
+    imageUrl: gallery7
+  },
+  {
+    id: 8,
+    title: "Extracurriculars",
+    imageUrl: gallery8
   }
 ];
 
@@ -141,12 +162,12 @@ export const directorMessage = {
   name: "Dr. A.K. Sharma",
   title: "Director, Saraswati Vidya Sr Sec School",
   message: "Education is not merely the filling of a pail, but the lighting of a fire. At Saraswati Vidya Sr Sec School, our goal is to ignite that spark of curiosity in every child. We are committed to providing a holistic education that empowers our students to be compassionate, innovative, and resilient leaders of tomorrow. Our dedicated faculty works tirelessly to create an environment where every student is encouraged to reach their full potential, both academically and personally.",
-  imageUrl: "https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+  imageUrl: directorPic
 };
 
 export const principalMessage = {
   name: "Dr. Eleanor Vance",
   title: "Principal, Saraswati Vidya Sr Sec School",
   message: "Welcome to our vibrant learning community. Our focus is on nurturing not just academic excellence, but also the character and values that will guide our students through life. We believe in creating a safe, inclusive, and challenging environment where every student feels valued and inspired to explore their passions.",
-  imageUrl: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+  imageUrl: principlePic
 };
