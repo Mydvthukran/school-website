@@ -20,14 +20,15 @@
 .hero-content {
   text-align: center;
   max-width: 800px;
+  width: 100%;
   margin: 0 auto;
   color: white;
-  padding: 2rem 1rem;
+  padding: 2.5rem 1.5rem;
 }
 
 @media (min-width: 768px) {
   .hero-content {
-    padding: 4rem 1.5rem;
+    padding: 4rem 3rem;
   }
 }
 
@@ -35,6 +36,7 @@
   font-size: 1.5rem;
   margin-bottom: 0.5rem;
   color: white;
+  text-shadow: 0 4px 15px rgba(0, 0, 0, 0.8), 0 2px 4px rgba(0, 0, 0, 0.9);
 }
 
 @media (min-width: 768px) {
@@ -47,7 +49,8 @@
 .hero-subtitle {
   font-size: 0.8rem;
   margin-bottom: 1rem;
-  color: var(--color-text-dark-muted);
+  color: white;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8), 0 1px 2px rgba(0, 0, 0, 0.9);
 }
 
 @media (min-width: 768px) {
