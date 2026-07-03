@@ -4,6 +4,35 @@ import { Briefcase, Heart, BookOpen, CheckCircle, Upload } from 'lucide-react';
 import heroHomeImage from '../assets/hero-home.png';
 import './Careers.css';
 
+const categoryData = {
+  teaching: {
+    name: 'Teaching',
+    sections: {
+      pre_primary: { name: 'Pre-Primary', roles: ['Mother Teacher', 'Co-Teacher'] },
+      primary: { name: 'Primary Section', roles: ['PRT - English', 'PRT - Math', 'PRT - Science', 'PRT - Hindi'] },
+      secondary: { name: 'Secondary Section', roles: ['TGT - English', 'TGT - Math', 'TGT - Science', 'TGT - Social Studies'] },
+      senior: { name: 'Senior Secondary', roles: ['PGT - Physics', 'PGT - Chemistry', 'PGT - Math', 'PGT - Biology'] },
+    }
+  },
+  non_teaching: {
+    name: 'Non-Teaching',
+    sections: {
+      transport: { name: 'Transport', roles: ['Driver', 'Conductor', 'Transport Incharge'] },
+      maintenance: { name: 'Maintenance', roles: ['Electrician', 'Plumber', 'Janitor'] },
+      it: { name: 'IT & Lab', roles: ['IT Assistant', 'Lab Attendant', 'System Admin'] },
+      security: { name: 'Security', roles: ['Security Guard', 'Security Supervisor'] }
+    }
+  },
+  admin: {
+    name: 'Administration',
+    sections: {
+      office: { name: 'Front Office', roles: ['Receptionist', 'PRO', 'Admission Counselor'] },
+      accounts: { name: 'Accounts', roles: ['Accountant', 'Fee Clerk'] },
+      management: { name: 'Management', roles: ['HR Executive', 'Office Superintendent'] }
+    }
+  }
+};
+
 const Careers = () => {
   const [submitted, setSubmitted] = useState(false);
   const [formData, setFormData] = useState({
@@ -17,7 +46,14 @@ const Careers = () => {
   });
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    if (name === 'category') {
+      setFormData({ ...formData, category: value, subCategory: '', profile: '' });
+    } else if (name === 'subCategory') {
+      setFormData({ ...formData, subCategory: value, profile: '' });
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }
   };
 
   const handleSubmit = (e) => {
@@ -114,29 +150,29 @@ const Careers = () => {
                         <label>Department</label>
                         <select name="category" required value={formData.category} onChange={handleChange}>
                           <option value="">Choose...</option>
-                          <option value="teaching">Teaching</option>
-                          <option value="non-teaching">Non-Teaching</option>
-                          <option value="admin">Administration</option>
+                          {Object.entries(categoryData).map(([key, data]) => (
+                            <option key={key} value={key}>{data.name}</option>
+                          ))}
                         </select>
                       </div>
                       
                       <div className="input-group">
                         <label>Section</label>
-                        <select name="subCategory" required value={formData.subCategory} onChange={handleChange}>
+                        <select name="subCategory" required value={formData.subCategory} onChange={handleChange} disabled={!formData.category}>
                           <option value="">Choose...</option>
-                          <option value="primary">Primary</option>
-                          <option value="secondary">Secondary</option>
-                          <option value="senior">Senior Secondary</option>
+                          {formData.category && Object.entries(categoryData[formData.category].sections).map(([key, data]) => (
+                            <option key={key} value={key}>{data.name}</option>
+                          ))}
                         </select>
                       </div>
                       
                       <div className="input-group">
                         <label>Role</label>
-                        <select name="profile" required value={formData.profile} onChange={handleChange}>
+                        <select name="profile" required value={formData.profile} onChange={handleChange} disabled={!formData.subCategory}>
                           <option value="">Choose...</option>
-                          <option value="prt">PRT</option>
-                          <option value="tgt">TGT</option>
-                          <option value="pgt">PGT</option>
+                          {formData.subCategory && categoryData[formData.category].sections[formData.subCategory].roles.map((role) => (
+                            <option key={role} value={role}>{role}</option>
+                          ))}
                         </select>
                       </div>
                     </div>
