@@ -159,14 +159,14 @@ export const dummyGallery = [
 ];
 
 export const directorMessage = {
-  name: "Dr. A.K. Sharma",
+  name: "Mr. Pardeep Rao",
   title: "Director, Saraswati Vidya Sr Sec School",
   message: "Education is not merely the filling of a pail, but the lighting of a fire. At Saraswati Vidya Sr Sec School, our goal is to ignite that spark of curiosity in every child. We are committed to providing a holistic education that empowers our students to be compassionate, innovative, and resilient leaders of tomorrow. Our dedicated faculty works tirelessly to create an environment where every student is encouraged to reach their full potential, both academically and personally.",
   imageUrl: directorPic
 };
 
 export const principalMessage = {
-  name: "Dr. Eleanor Vance",
+  name: "Dr. Anupma Yadav",
   title: "Principal, Saraswati Vidya Sr Sec School",
   message: "Welcome to our vibrant learning community. Our focus is on nurturing not just academic excellence, but also the character and values that will guide our students through life. We believe in creating a safe, inclusive, and challenging environment where every student feels valued and inspired to explore their passions.",
   imageUrl: principlePic

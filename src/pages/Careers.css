@@ -1,0 +1,88 @@
+.recruitment-card {
+  background-color: #fff;
+  border-radius: 4px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e0e0e0;
+  overflow: hidden;
+  margin-top: -30px;
+  position: relative;
+  z-index: 10;
+}
+
+.recruitment-header {
+  background-color: #b92b27;
+  padding: 1rem 1.5rem;
+  color: white;
+}
+
+.recruitment-header h2 {
+  color: white;
+  margin: 0;
+  font-size: 1.25rem;
+  font-family: serif;
+  font-weight: 500;
+}
+
+.recruitment-body {
+  padding: 1.5rem;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+@media (min-width: 768px) {
+  .form-row {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.form-select {
+  padding: 0.6rem;
+  border: 1px solid #c85a5a;
+  border-radius: 4px;
+  background-color: #f8f9fa;
+  font-size: 0.95rem;
+  color: #555;
+  outline: none;
+}
+
+.form-select:focus {
+  border-color: #b92b27;
+  box-shadow: 0 0 0 2px rgba(185, 43, 39, 0.2);
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btn-next {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 0.5rem 1.5rem;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-next:hover {
+  background-color: #c82333;
+}
