@@ -1,30 +1,35 @@
 .recruitment-card {
-  background-color: #fff;
-  border-radius: 4px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-  border: 1px solid #e0e0e0;
+  background-color: var(--color-surface-light);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  border: 1px solid rgba(0, 0, 0, 0.05);
   overflow: hidden;
-  margin-top: -30px;
+  margin-top: -50px;
   position: relative;
   z-index: 10;
+  transition: var(--transition);
+}
+
+.recruitment-card:hover {
+  box-shadow: var(--shadow-hover);
 }
 
 .recruitment-header {
-  background-color: #b92b27;
-  padding: 1rem 1.5rem;
+  background-color: var(--color-primary);
+  padding: 1.5rem 2rem;
   color: white;
 }
 
 .recruitment-header h2 {
   color: white;
   margin: 0;
-  font-size: 1.25rem;
-  font-family: serif;
-  font-weight: 500;
+  font-size: 1.5rem;
+  font-weight: 600;
+  font-family: var(--font-heading);
 }
 
 .recruitment-body {
-  padding: 1.5rem;
+  padding: 2rem;
 }
 
 .form-row {
@@ -46,43 +51,72 @@
 }
 
 .form-group label {
-  font-size: 0.9rem;
-  font-weight: 700;
-  color: #333;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--color-text-main);
   margin-bottom: 0.5rem;
 }
 
-.form-select {
-  padding: 0.6rem;
-  border: 1px solid #c85a5a;
-  border-radius: 4px;
-  background-color: #f8f9fa;
-  font-size: 0.95rem;
-  color: #555;
+.form-select, .form-input {
+  padding: 0.8rem 1rem;
+  border: 2px solid #e2e8f0;
+  border-radius: var(--radius-md);
+  background-color: #f8fafc;
+  font-size: 1rem;
+  color: var(--color-text-main);
+  font-family: var(--font-body);
   outline: none;
+  transition: var(--transition);
+  width: 100%;
 }
 
-.form-select:focus {
-  border-color: #b92b27;
-  box-shadow: 0 0 0 2px rgba(185, 43, 39, 0.2);
+.form-select:focus, .form-input:focus {
+  border-color: var(--color-primary);
+  background-color: #fff;
+  box-shadow: 0 0 0 4px rgba(30, 58, 138, 0.1);
+}
+
+.file-upload {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.8rem 1rem;
+  border: 2px dashed #cbd5e1;
+  border-radius: var(--radius-md);
+  background-color: #f8fafc;
+  color: var(--color-text-muted);
+  font-weight: 500;
+  cursor: pointer;
+  position: relative;
+  transition: var(--transition);
+}
+
+.file-upload:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  background-color: rgba(30, 58, 138, 0.05);
+}
+
+.file-upload input[type="file"] {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
 }
 
 .form-actions {
   display: flex;
   justify-content: flex-end;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #f1f5f9;
 }
 
-.btn-next {
-  background-color: #dc3545;
-  color: white;
-  border: none;
-  padding: 0.5rem 1.5rem;
-  border-radius: 4px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-
-.btn-next:hover {
-  background-color: #c82333;
+.py-5 {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
 }
