@@ -9,19 +9,19 @@ const Portal = () => {
   const renderDashboard = () => (
     <div className="animate-fade-in">
       <div className="dashboard-grid">
-        <div className="stat-card glass">
+        <div className="portal-stat-card glass">
           <h4>Attendance</h4>
-          <div className="stat-value">{studentData.attendance}</div>
+          <div className="portal-stat-value">{studentData.attendance}</div>
           <p className="text-sm text-muted">Current Semester</p>
         </div>
-        <div className="stat-card glass">
+        <div className="portal-stat-card glass">
           <h4>Overall Grade</h4>
-          <div className="stat-value">{studentData.overallGrade}</div>
+          <div className="portal-stat-value">{studentData.overallGrade}</div>
           <p className="text-sm text-muted">Latest Evaluation</p>
         </div>
-        <div className="stat-card glass">
+        <div className="portal-stat-card glass">
           <h4>Upcoming Events</h4>
-          <div className="stat-value">{studentData.announcements.length}</div>
+          <div className="portal-stat-value">{studentData.announcements.length}</div>
           <p className="text-sm text-muted">Check Announcements</p>
         </div>
       </div>
