@@ -44,9 +44,14 @@ const Navbar = () => {
               </li>
             ))}
           </ul>
-          <Link to="/admissions" className="btn btn-primary nav-btn">
-            Apply Now
-          </Link>
+          <div style={{ display: 'flex', gap: '0.5rem' }}>
+            <Link to="/portal" className="btn btn-outline nav-btn">
+              Portal
+            </Link>
+            <Link to="/admissions" className="btn btn-primary nav-btn">
+              Apply Now
+            </Link>
+          </div>
         </nav>
 
         {/* Mobile Menu Toggle */}
@@ -70,7 +75,10 @@ const Navbar = () => {
             </li>
           ))}
           <li>
-            <Link to="/admissions" className="btn btn-primary w-full text-center mt-4" onClick={closeMenu}>
+            <Link to="/portal" className="btn btn-outline w-full text-center mt-4" onClick={closeMenu}>
+              Portal
+            </Link>
+            <Link to="/admissions" className="btn btn-primary w-full text-center mt-2" onClick={closeMenu}>
               Apply Now
             </Link>
           </li>

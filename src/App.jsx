@@ -7,6 +7,7 @@ import Academics from './pages/Academics';
 import Admissions from './pages/Admissions';
 import Contact from './pages/Contact';
 import Careers from './pages/Careers';
+import Portal from './pages/Portal';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="admissions" element={<Admissions />} />
           <Route path="careers" element={<Careers />} />
           <Route path="contact" element={<Contact />} />
+          <Route path="portal" element={<Portal />} />
         </Route>
       </Routes>
     </Router>
