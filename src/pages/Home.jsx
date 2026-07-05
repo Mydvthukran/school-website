@@ -1,6 +1,8 @@
 import Hero from '../components/Hero';
 import { dummyStats, dummyGallery, directorMessage, principalMessage } from '../data/dummy';
 import { GraduationCap, Users, Trophy, Quote } from 'lucide-react';
+import { motion } from 'framer-motion';
+import CountUp from 'react-countup';
 import './Home.css';
 import heroHomeImage from '../assets/hero-home.png';
 
@@ -22,10 +24,25 @@ const Home = () => {
         <div className="container">
           <div className="grid-4">
             {dummyStats.map((stat, index) => (
-              <div key={index} className="stat-card">
-                <h3 className="stat-value">{stat.value}</h3>
+              <motion.div 
+                key={index} 
+                className="stat-card"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1, duration: 0.5 }}
+              >
+                <h3 className="stat-value">
+                  <CountUp 
+                    end={stat.value} 
+                    suffix={stat.suffix} 
+                    enableScrollSpy={true} 
+                    scrollSpyOnce={true} 
+                    duration={2.5} 
+                  />
+                </h3>
                 <p className="stat-label">{stat.label}</p>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -34,7 +51,13 @@ const Home = () => {
       {/* Director Message Section */}
       <section className="section director-section">
         <div className="container">
-          <div className="director-container">
+          <motion.div 
+            className="director-container"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+          >
             <div className="director-image-wrapper">
               <img src={directorMessage.imageUrl} alt={directorMessage.name} className="director-image" />
               <div className="director-image-decoration"></div>
@@ -48,14 +71,21 @@ const Home = () => {
                 <p>{directorMessage.title}</p>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* Principal Message Section */}
       <section className="section director-section bg-light">
         <div className="container">
-          <div className="director-container" style={{ direction: 'rtl' }}>
+          <motion.div 
+            className="director-container" 
+            style={{ direction: 'rtl' }}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+          >
             <div className="director-image-wrapper" style={{ direction: 'ltr' }}>
               <img src={principalMessage.imageUrl} alt={principalMessage.name} className="director-image" />
               <div className="director-image-decoration"></div>
@@ -69,7 +99,7 @@ const Home = () => {
                 <p>{principalMessage.title}</p>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
@@ -109,13 +139,20 @@ const Home = () => {
             <p>A glimpse into the vibrant life at Saraswati Vidya Sr Sec School.</p>
           </div>
           <div className="gallery-grid">
-            {dummyGallery.map((item) => (
-              <div key={item.id} className="gallery-item">
+            {dummyGallery.map((item, index) => (
+              <motion.div 
+                key={item.id} 
+                className="gallery-item"
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1, duration: 0.5 }}
+              >
                 <img src={item.imageUrl} alt={item.title} className="gallery-image" />
                 <div className="gallery-overlay">
                   <h4>{item.title}</h4>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>

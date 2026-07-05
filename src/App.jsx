@@ -8,22 +8,25 @@ import Admissions from './pages/Admissions';
 import Contact from './pages/Contact';
 import Careers from './pages/Careers';
 import Portal from './pages/Portal';
+import { ThemeProvider } from './context/ThemeContext';
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path="about" element={<About />} />
-          <Route path="academics" element={<Academics />} />
-          <Route path="admissions" element={<Admissions />} />
-          <Route path="careers" element={<Careers />} />
-          <Route path="contact" element={<Contact />} />
-          <Route path="portal" element={<Portal />} />
-        </Route>
-      </Routes>
-    </Router>
+    <ThemeProvider>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Home />} />
+            <Route path="about" element={<About />} />
+            <Route path="academics" element={<Academics />} />
+            <Route path="admissions" element={<Admissions />} />
+            <Route path="careers" element={<Careers />} />
+            <Route path="contact" element={<Contact />} />
+            <Route path="portal" element={<Portal />} />
+          </Route>
+        </Routes>
+      </Router>
+    </ThemeProvider>
   );
 }
 

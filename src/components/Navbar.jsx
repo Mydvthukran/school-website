@@ -1,12 +1,14 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Sun, Moon } from 'lucide-react';
+import { useTheme } from '../context/ThemeContext';
 import './Navbar.css';
 import logo from '../assets/logo.png';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
+  const { theme, toggleTheme } = useTheme();
 
   const toggleMenu = () => setIsOpen(!isOpen);
   const closeMenu = () => setIsOpen(false);
@@ -44,7 +46,10 @@ const Navbar = () => {
               </li>
             ))}
           </ul>
-          <div style={{ display: 'flex', gap: '0.5rem' }}>
+          <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+            <button onClick={toggleTheme} className="theme-toggle-btn" aria-label="Toggle theme">
+              {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
+            </button>
             <Link to="/portal" className="btn btn-outline nav-btn">
               Portal
             </Link>
@@ -55,9 +60,14 @@ const Navbar = () => {
         </nav>
 
         {/* Mobile Menu Toggle */}
-        <button className="mobile-toggle" onClick={toggleMenu} aria-label="Toggle Menu">
-          {isOpen ? <X size={28} /> : <Menu size={28} />}
-        </button>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+          <button onClick={toggleTheme} className="theme-toggle-btn mobile-theme-btn" aria-label="Toggle theme">
+            {theme === 'dark' ? <Sun size={24} /> : <Moon size={24} />}
+          </button>
+          <button className="mobile-toggle" onClick={toggleMenu} aria-label="Toggle Menu">
+            {isOpen ? <X size={28} /> : <Menu size={28} />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Nav */}
