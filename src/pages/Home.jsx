@@ -2,7 +2,8 @@ import Hero from '../components/Hero';
 import { dummyStats, dummyGallery, directorMessage, principalMessage } from '../data/dummy';
 import { GraduationCap, Users, Trophy, Quote } from 'lucide-react';
 import { motion } from 'framer-motion';
-import CountUp from 'react-countup';
+import CountUpModule from 'react-countup';
+const CountUp = CountUpModule.default ? CountUpModule.default : CountUpModule;
 import './Home.css';
 import heroHomeImage from '../assets/hero-home.png';
 

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { studentData } from '../data/portalData';
-import { LayoutDashboard, Calendar, ClipboardCheck, GraduationCap, Bell } from 'lucide-react';
+import { LayoutDashboard, Calendar, GraduationCap } from 'lucide-react';
 import './Portal.css';
 
 const Portal = () => {
