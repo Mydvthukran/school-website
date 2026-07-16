@@ -70,17 +70,17 @@ const Contact = () => {
               <form onSubmit={(e) => e.preventDefault()} style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                   <label htmlFor="name" style={{ fontWeight: '500' }}>Full Name</label>
-                  <input type="text" id="name" style={{ padding: '0.75rem', borderRadius: 'var(--radius-md)', border: '1px solid #cbd5e1', outline: 'none' }} placeholder="John Doe" />
+                  <input type="text" id="name" style={{ padding: '0.75rem', borderRadius: 'var(--radius-md)', border: '1px solid var(--color-border)', outline: 'none', backgroundColor: 'var(--color-surface-light)', color: 'var(--color-text-main)' }} placeholder="John Doe" />
                 </div>
                 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                   <label htmlFor="email" style={{ fontWeight: '500' }}>Email Address</label>
-                  <input type="email" id="email" style={{ padding: '0.75rem', borderRadius: 'var(--radius-md)', border: '1px solid #cbd5e1', outline: 'none' }} placeholder="john@example.com" />
+                  <input type="email" id="email" style={{ padding: '0.75rem', borderRadius: 'var(--radius-md)', border: '1px solid var(--color-border)', outline: 'none', backgroundColor: 'var(--color-surface-light)', color: 'var(--color-text-main)' }} placeholder="john@example.com" />
                 </div>
                 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                   <label htmlFor="subject" style={{ fontWeight: '500' }}>Subject</label>
-                  <select id="subject" style={{ padding: '0.75rem', borderRadius: 'var(--radius-md)', border: '1px solid #cbd5e1', outline: 'none', backgroundColor: 'white' }}>
+                  <select id="subject" style={{ padding: '0.75rem', borderRadius: 'var(--radius-md)', border: '1px solid var(--color-border)', outline: 'none', backgroundColor: 'var(--color-surface-light)', color: 'var(--color-text-main)' }}>
                     <option value="">Select a subject...</option>
                     <option value="admissions">Admissions Inquiry</option>
                     <option value="general">General Question</option>
@@ -90,7 +90,7 @@ const Contact = () => {
                 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                   <label htmlFor="message" style={{ fontWeight: '500' }}>Message</label>
-                  <textarea id="message" rows="5" style={{ padding: '0.75rem', borderRadius: 'var(--radius-md)', border: '1px solid #cbd5e1', outline: 'none', resize: 'vertical' }} placeholder="How can we help you?"></textarea>
+                  <textarea id="message" rows="5" style={{ padding: '0.75rem', borderRadius: 'var(--radius-md)', border: '1px solid var(--color-border)', outline: 'none', resize: 'vertical', backgroundColor: 'var(--color-surface-light)', color: 'var(--color-text-main)' }} placeholder="How can we help you?"></textarea>
                 </div>
                 
                 <button type="submit" className="btn btn-primary" style={{ marginTop: '1rem' }}>
@@ -103,7 +103,7 @@ const Contact = () => {
       </section>
 
       {/* Map Section */}
-      <section style={{ width: '100%', height: '300px', backgroundColor: '#e2e8f0' }}>
+      <section style={{ width: '100%', height: '300px', backgroundColor: 'var(--color-surface-light)' }}>
         <iframe 
           title="School Location Map"
           width="100%" 
