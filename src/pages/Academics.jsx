@@ -28,7 +28,7 @@ const Academics = () => {
           <div className="grid-2">
             {dummyPrograms.map((program) => (
               <div key={program.id} style={{ 
-                backgroundColor: 'white', 
+                backgroundColor: 'var(--color-surface-light)', 
                 padding: '1.5rem', 
                 borderRadius: 'var(--radius-lg)',
                 boxShadow: 'var(--shadow-md)',
@@ -83,7 +83,7 @@ const Academics = () => {
               <div 
                 key={idx} 
                 style={{ 
-                  backgroundColor: 'white', 
+                  backgroundColor: 'var(--color-surface-light)', 
                   padding: '2.5rem 2rem', 
                   borderRadius: 'var(--radius-lg)',
                   boxShadow: 'var(--shadow-sm)',

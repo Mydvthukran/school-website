@@ -15,7 +15,7 @@ const About = () => {
       <section className="section bg-light">
         <div className="container">
           <div className="grid-2" style={{ gap: '2rem' }}>
-            <div style={{ background: 'white', padding: '3rem', borderRadius: 'var(--radius-lg)', boxShadow: 'var(--shadow-md)', textAlign: 'center', transition: 'var(--transition)' }} className="hover-lift">
+            <div style={{ background: 'var(--color-surface-light)', padding: '3rem', borderRadius: 'var(--radius-lg)', boxShadow: 'var(--shadow-md)', textAlign: 'center', transition: 'var(--transition)' }} className="hover-lift">
               <div style={{ width: '80px', height: '80px', background: 'rgba(59, 130, 246, 0.1)', color: 'var(--color-primary)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.5rem' }}>
                 <Target size={40} />
               </div>
