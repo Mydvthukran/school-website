@@ -150,7 +150,7 @@
 
 .input-group input:focus, .input-group select:focus {
   outline: none;
-  border-color: var(--color-primary);
+  border-color: var(--color-accent);
   background-color: var(--color-surface-light);
   box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.1);
 }

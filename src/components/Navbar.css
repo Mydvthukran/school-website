@@ -95,7 +95,7 @@
 }
 
 .nav-link:hover, .nav-link.active {
-  color: var(--color-primary);
+  color: var(--color-secondary);
 }
 
 .nav-link::after {
@@ -105,7 +105,7 @@
   left: 0;
   width: 0;
   height: 2px;
-  background-color: var(--color-primary);
+  background-color: var(--color-secondary);
   transition: var(--transition);
 }
 
@@ -166,7 +166,7 @@
 }
 
 .mobile-nav-link.active {
-  color: var(--color-primary);
+  color: var(--color-secondary);
 }
 
 .w-full {
