@@ -78,7 +78,7 @@
 
 /* Feature Cards */
 .feature-card {
-  background-color: white;
+  background-color: var(--color-surface-light);
   padding: 1rem;
   border-radius: var(--radius-md);
   text-align: center;
@@ -249,7 +249,7 @@
 /* Director Section */
 .director-section {
   padding: 2rem 0;
-  background-color: white;
+  background-color: var(--color-surface-light);
 }
 
 @media (min-width: 768px) {
@@ -363,7 +363,7 @@
 .director-title {
   font-size: 1rem;
   margin-bottom: 0.5rem;
-  color: var(--color-text);
+  color: var(--color-text-main);
 }
 
 @media (min-width: 768px) {

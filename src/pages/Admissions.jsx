@@ -92,7 +92,7 @@ const Admissions = () => {
           zIndex: 9999, padding: '1rem'
         }}>
           <div style={{
-            backgroundColor: 'white', padding: '2.5rem', borderRadius: 'var(--radius-lg)',
+            backgroundColor: 'var(--color-surface-light)', padding: '2.5rem', borderRadius: 'var(--radius-lg)',
             width: '100%', maxWidth: '600px', position: 'relative', boxShadow: 'var(--shadow-lg)',
             color: 'var(--color-text-main)'
           }}>
@@ -138,7 +138,7 @@ const Admissions = () => {
                     </div>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                       <label style={{ fontSize: '0.9rem', fontWeight: '500', color: 'var(--color-text-main)' }}>Applying for Grade *</label>
-                      <select required style={{ padding: '0.75rem', borderRadius: 'var(--radius-sm)', border: '1px solid var(--color-border)', outline: 'none', backgroundColor: 'white' }}>
+                      <select required style={{ padding: '0.75rem', borderRadius: 'var(--radius-sm)', border: '1px solid var(--color-border)', outline: 'none', backgroundColor: 'var(--color-surface-light)', color: 'var(--color-text-main)' }}>
                         <option value="">Select Grade</option>
                         <option value="6">Grade 6</option>
                         <option value="7">Grade 7</option>
