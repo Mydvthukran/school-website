@@ -9,10 +9,10 @@
   --color-accent: #b91c1c; /* Crimson Red */
   --color-accent-light: #ef4444; /* Light Crimson */
   
-  --color-bg-light: #f8fafc; /* Slate 50 */
+  --color-bg-light: #ffffff; /* Pure White */
   --color-surface-light: #ffffff;
-  --color-text-main: #0f172a; /* Slate 900 */
-  --color-text-muted: #475569; /* Slate 600 */
+  --color-text-main: #000000; /* Pure Black */
+  --color-text-muted: #333333; /* Dark Gray */
   --color-border: #e2e8f0;
   
   --color-bg-dark: #0f172a; /* Slate 900 */
