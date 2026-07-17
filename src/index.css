@@ -2,20 +2,20 @@
 
 :root {
   /* Premium Color Palette */
-  --color-primary: #1e3a8a; /* Deep Blue */
-  --color-primary-light: #3b82f6;
-  --color-secondary: #fbbf24; /* Amber/Gold */
-  --color-secondary-hover: #f59e0b;
+  --color-primary: #064e3b; /* Emerald 900 */
+  --color-primary-light: #059669; /* Emerald 600 */
+  --color-secondary: #f59e0b; /* Amber 500 */
+  --color-secondary-hover: #d97706; /* Amber 600 */
   
-  --color-bg-light: #f8fafc;
+  --color-bg-light: #f0fdf4; /* Green 50 */
   --color-surface-light: #ffffff;
-  --color-text-main: #0f172a;
-  --color-text-muted: #64748b;
+  --color-text-main: #022c22; /* Emerald 950 */
+  --color-text-muted: #065f46; /* Emerald 800 */
   
-  --color-bg-dark: #0f172a;
-  --color-surface-dark: #1e293b;
-  --color-text-dark-main: #f8fafc;
-  --color-text-dark-muted: #cbd5e1;
+  --color-bg-dark: #022c22; /* Emerald 950 */
+  --color-surface-dark: #064e3b; /* Emerald 900 */
+  --color-text-dark-main: #f0fdf4;
+  --color-text-dark-muted: #a7f3d0; /* Emerald 200 */
 
   /* Typography */
   --font-heading: 'Outfit', sans-serif;
