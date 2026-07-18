@@ -4,7 +4,7 @@
   left: 0;
   width: 100%;
   z-index: 1000;
-  background: var(--color-bg-light);
+  background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
@@ -130,11 +130,11 @@
 }
 
 .mobile-nav {
-  position: absolute;
+  position: fixed;
   top: 70px;
   left: 0;
   width: 100%;
-  background-color: var(--color-bg-light);
+  background-color: var(--color-surface-light);
   padding: 1.5rem;
   box-shadow: var(--shadow-md);
   transform: translateY(-100%);
