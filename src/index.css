@@ -1,13 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap');
 
 :root {
-  /* Premium Color Palette */
-  --color-primary: #1e3a8a; /* Deep Navy Blue */
-  --color-primary-light: #2563eb; /* Royal Blue */
-  --color-secondary: #fbbf24; /* Official Gold */
-  --color-secondary-hover: #f59e0b; /* Dark Gold */
-  --color-accent: #b91c1c; /* Crimson Red */
-  --color-accent-light: #ef4444; /* Light Crimson */
+  /* Premium Vibrant Color Palette */
+  --color-primary: #4f46e5; /* Indigo 600 */
+  --color-primary-light: #6366f1; /* Indigo 500 */
+  --color-secondary: #f43f5e; /* Rose 500 */
+  --color-secondary-hover: #e11d48; /* Rose 600 */
+  --color-accent: #0ea5e9; /* Sky Blue 500 */
+  --color-accent-light: #38bdf8; /* Sky Blue 400 */
   
   --color-bg-light: #f8fafc; /* Slate 50 */
   --color-surface-light: #ffffff;
@@ -56,12 +56,13 @@
 
 html, body {
   font-family: var(--font-body);
-  background-color: var(--color-bg-light);
+  background: var(--color-bg-light);
+  background-image: radial-gradient(at top left, var(--color-surface-light) 0%, transparent 50%), radial-gradient(at bottom right, rgba(99, 102, 241, 0.05) 0%, transparent 50%);
   color: var(--color-text-main);
   line-height: 1.6;
   overflow-x: hidden;
   scroll-behavior: smooth;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -141,25 +142,27 @@ ul {
 }
 
 .btn-primary {
-  background-color: var(--color-primary);
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light));
   color: white;
+  border: none;
 }
 
 .btn-primary:hover {
-  background-color: var(--color-primary-light);
+  background: linear-gradient(135deg, var(--color-primary-light), var(--color-primary));
   transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
+  box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.4);
 }
 
 .btn-secondary {
-  background-color: var(--color-secondary);
-  color: var(--color-text-main);
+  background: linear-gradient(135deg, var(--color-secondary), var(--color-secondary-hover));
+  color: white;
+  border: none;
 }
 
 .btn-secondary:hover {
-  background-color: var(--color-secondary-hover);
+  background: linear-gradient(135deg, var(--color-secondary-hover), var(--color-secondary));
   transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
+  box-shadow: 0 10px 15px -3px rgba(244, 63, 94, 0.4);
 }
 
 .btn-outline {
