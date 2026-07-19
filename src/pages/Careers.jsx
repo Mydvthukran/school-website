@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Hero from '../components/Hero';
 import { Briefcase, Heart, BookOpen, CheckCircle, Upload } from 'lucide-react';
-import heroHomeImage from '../assets/hero-home.png';
+import heroHomeImage from '../assets/hero-home.jpeg';
 import './Careers.css';
 
 const categoryData = {
