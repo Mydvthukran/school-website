@@ -58,7 +58,7 @@ const Navbar = () => {
         </nav>
 
         {/* Mobile Menu Toggle */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+        <div className="mobile-controls">
           <button onClick={toggleTheme} className="theme-toggle-btn mobile-theme-btn" aria-label="Toggle theme">
             {theme === 'dark' ? <Sun size={24} /> : <Moon size={24} />}
           </button>

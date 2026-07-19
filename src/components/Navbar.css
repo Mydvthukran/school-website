@@ -65,6 +65,12 @@
 
 @media (min-width: 768px) {
   .logo-text {
+    font-size: 1.1rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .logo-text {
     font-size: 1.4rem;
   }
 }
@@ -77,6 +83,12 @@
   .desktop-nav {
     display: flex;
     align-items: center;
+    gap: 1rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .desktop-nav {
     gap: 2rem;
   }
 }
@@ -84,7 +96,13 @@
 .nav-list {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
+  gap: 1rem;
+}
+
+@media (min-width: 1024px) {
+  .nav-list {
+    gap: 1.5rem;
+  }
 }
 
 .nav-link {
@@ -125,6 +143,18 @@
 
 @media (min-width: 768px) {
   .mobile-toggle {
+    display: none;
+  }
+}
+
+.mobile-controls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .mobile-controls {
     display: none;
   }
 }
