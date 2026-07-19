@@ -115,6 +115,24 @@ export const siteStats = [
   { label: "Board Exam Passing", value: 98, suffix: "%" },
 ];
 
+export const siteFacilities = [
+  {
+    id: 1,
+    title: "Science Laboratory",
+    imageUrl: gallery2
+  },
+  {
+    id: 2,
+    title: "Digital Library",
+    imageUrl: gallery4
+  },
+  {
+    id: 3,
+    title: "Computer Center",
+    imageUrl: gallery5
+  }
+];
+
 export const siteGallery = [
   {
     id: 1,
@@ -122,24 +140,9 @@ export const siteGallery = [
     imageUrl: gallery1
   },
   {
-    id: 2,
-    title: "Science Exhibition",
-    imageUrl: gallery2
-  },
-  {
     id: 3,
     title: "Cultural Festival",
     imageUrl: gallery3
-  },
-  {
-    id: 4,
-    title: "Library Study Time",
-    imageUrl: gallery4
-  },
-  {
-    id: 5,
-    title: "Computer Lab Session",
-    imageUrl: gallery5
   },
   {
     id: 6,

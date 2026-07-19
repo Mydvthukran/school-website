@@ -1,13 +1,23 @@
+import React, { useState, useEffect } from 'react';
 import Hero from '../components/Hero';
 import { siteStats, siteGallery, directorMessage, principalMessage } from '../data/siteData';
 import { GraduationCap, Users, Trophy, Quote } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import CountUpModule from 'react-countup';
 const CountUp = CountUpModule.default ? CountUpModule.default : CountUpModule;
 import './Home.css';
 import heroHomeImage from '../assets/hero-home.jpeg';
 
 const Home = () => {
+  const [currentGalleryIndex, setCurrentGalleryIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentGalleryIndex((prevIndex) => (prevIndex + 1) % siteGallery.length);
+    }, 2000);
+    return () => clearInterval(timer);
+  }, []);
+
   return (
     <div className="home">
       <Hero 
@@ -139,22 +149,26 @@ const Home = () => {
             <h2>Our Photo Gallery</h2>
             <p>A glimpse into the vibrant life at Saraswati Vidya Sr Sec School.</p>
           </div>
-          <div className="gallery-grid">
-            {siteGallery.map((item, index) => (
-              <motion.div 
-                key={item.id} 
-                className="gallery-item"
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1, duration: 0.5 }}
+          <div className="gallery-slider" style={{ maxWidth: '900px', margin: '0 auto', position: 'relative', height: '500px', overflow: 'hidden', borderRadius: '1rem', boxShadow: 'var(--shadow-lg)' }}>
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={currentGalleryIndex}
+                initial={{ opacity: 0, scale: 1.05 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.8 }}
+                style={{ position: 'absolute', inset: 0 }}
               >
-                <img src={item.imageUrl} alt={item.title} className="gallery-image" />
-                <div className="gallery-overlay">
-                  <h4>{item.title}</h4>
+                <img 
+                  src={siteGallery[currentGalleryIndex].imageUrl} 
+                  alt={siteGallery[currentGalleryIndex].title} 
+                  style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+                />
+                <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '2rem', background: 'linear-gradient(transparent, rgba(0,0,0,0.8))' }}>
+                  <h3 style={{ color: 'white', margin: 0, fontSize: '2rem' }}>{siteGallery[currentGalleryIndex].title}</h3>
                 </div>
               </motion.div>
-            ))}
+            </AnimatePresence>
           </div>
         </div>
       </section>

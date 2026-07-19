@@ -1,5 +1,6 @@
 import Hero from '../components/Hero';
 import { Target, Eye, Shield, Heart, Lightbulb, Globe } from 'lucide-react';
+import { siteFacilities } from '../data/siteData';
 import './Home.css'; // Importing for feature-card styles
 
 const About = () => {
@@ -58,6 +59,26 @@ const About = () => {
                 </div>
                 <h3>{val.title}</h3>
                 <p>{val.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Facilities Section */}
+      <section className="section bg-light">
+        <div className="container">
+          <div className="section-title">
+            <h2>Our Facilities</h2>
+            <p>State-of-the-art infrastructure designed to foster a conducive learning environment.</p>
+          </div>
+          <div className="grid-3">
+            {siteFacilities.map((facility) => (
+              <div key={facility.id} className="gallery-item" style={{ borderRadius: '1rem', overflow: 'hidden', position: 'relative' }}>
+                <img src={facility.imageUrl} alt={facility.title} style={{ width: '100%', height: '250px', objectFit: 'cover' }} />
+                <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '1rem', background: 'linear-gradient(transparent, rgba(0,0,0,0.8))', color: 'white' }}>
+                  <h4 style={{ margin: 0, fontSize: '1.2rem' }}>{facility.title}</h4>
+                </div>
               </div>
             ))}
           </div>
