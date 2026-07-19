@@ -1,12 +1,12 @@
 import directorPic from '../assets/director pic/director.png';
 import principlePic from '../assets/principle pic/principle.png';
 import gallery1 from '../assets/gallary/Screenshot 2026-07-03 215527.png';
-import gallery2 from '../assets/gallary/Screenshot 2026-07-03 215535.png';
-import gallery3 from '../assets/gallary/Screenshot 2026-07-03 215542.png';
-import gallery4 from '../assets/gallary/Screenshot 2026-07-03 215553.png';
-import gallery5 from '../assets/gallary/Screenshot 2026-07-03 215600.png';
-import gallery6 from '../assets/gallary/Screenshot 2026-07-03 215610.png';
-import gallery7 from '../assets/gallary/Screenshot 2026-07-03 215619.png';
+import gallery2 from '../assets/science lab photo.png';
+import gallery3 from '../assets/gallery3.jpeg';
+import gallery4 from '../assets/library photo.png';
+import gallery5 from '../assets/computer lab photo.png';
+import gallery6 from '../assets/gallery2.jpeg';
+import gallery7 from '../assets/gallery 4.jpeg';
 import gallery8 from '../assets/gallary/Screenshot 2026-07-03 215630.png';
 
 export const dummyNews = [

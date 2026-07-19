@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import CountUpModule from 'react-countup';
 const CountUp = CountUpModule.default ? CountUpModule.default : CountUpModule;
 import './Home.css';
-import heroHomeImage from '../assets/hero-home.png';
+import heroHomeImage from '../assets/hero-home.jpeg';
 
 const Home = () => {
   return (
