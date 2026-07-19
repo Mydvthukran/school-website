@@ -30,7 +30,10 @@ const Navbar = () => {
       <div className="container navbar">
         <Link to="/" className="logo" onClick={closeMenu}>
           <img src={logo} alt="School Logo" className="logo-icon" />
-          <span className="logo-text">Saraswati Vidya Sr Sec School</span>
+          <span className="logo-text">
+            <span className="desktop-logo-text">Saraswati Vidya Sr Sec School</span>
+            <span className="mobile-logo-text">Saraswati Vidya</span>
+          </span>
         </Link>
 
         {/* Desktop Menu */}

@@ -62,10 +62,24 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  background-clip: text;
   max-width: 140px;
-  white-space: normal;
   line-height: 1.1;
   display: block;
+  white-space: nowrap;
+}
+
+.mobile-logo-text {
+  display: none;
+}
+
+@media (max-width: 1279px) {
+  .desktop-logo-text {
+    display: none;
+  }
+  .mobile-logo-text {
+    display: inline;
+  }
 }
 
 @media (min-width: 768px) {
@@ -149,6 +163,7 @@
   color: var(--color-text-main);
   transition: var(--transition);
   position: relative;
+  white-space: nowrap;
 }
 
 .nav-link:hover, .nav-link.active {

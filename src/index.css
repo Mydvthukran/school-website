@@ -132,6 +132,7 @@ ul {
   cursor: pointer;
   border: none;
   gap: 0.5rem;
+  white-space: nowrap;
 }
 
 @media (min-width: 768px) {
