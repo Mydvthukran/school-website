@@ -7,6 +7,7 @@ import Academics from './pages/Academics';
 import Admissions from './pages/Admissions';
 import Contact from './pages/Contact';
 import Careers from './pages/Careers';
+import Gallery from './pages/Gallery';
 import { ThemeProvider } from './context/ThemeContext';
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
             <Route path="admissions" element={<Admissions />} />
             <Route path="careers" element={<Careers />} />
             <Route path="contact" element={<Contact />} />
+            <Route path="gallery" element={<Gallery />} />
           </Route>
         </Routes>
       </Router>

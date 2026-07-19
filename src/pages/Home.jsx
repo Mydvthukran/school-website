@@ -9,7 +9,14 @@ import './Home.css';
 import heroHomeImage from '../assets/hero-home.jpeg';
 
 const Home = () => {
-  // Masonry layout doesn't need an interval timer
+  const [currentGalleryIndex, setCurrentGalleryIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentGalleryIndex((prevIndex) => (prevIndex + 1) % siteGallery.length);
+    }, 3000);
+    return () => clearInterval(timer);
+  }, []);
 
   return (
     <div className="home">
@@ -142,22 +149,38 @@ const Home = () => {
             <h2>Our Photo Gallery</h2>
             <p>A glimpse into the vibrant life at Saraswati Vidya Sr Sec School.</p>
           </div>
-          <div className="gallery-masonry">
-            {siteGallery.map((item, index) => (
-              <motion.div 
-                key={item.id} 
-                className="gallery-masonry-item"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1, duration: 0.5 }}
+          <div className="gallery-slider-modern">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={currentGalleryIndex}
+                initial={{ opacity: 0, x: 50 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -50 }}
+                transition={{ duration: 0.5 }}
+                className="slider-item"
               >
-                <img src={item.imageUrl} alt={item.title} className="gallery-masonry-image" />
-                <div className="gallery-overlay">
-                  <h4>{item.title}</h4>
+                {/* Blurred background to fill space creatively without cropping */}
+                <div 
+                  className="slider-bg-blur"
+                  style={{ backgroundImage: `url(${siteGallery[currentGalleryIndex].imageUrl})` }}
+                ></div>
+                
+                {/* The actual uncropped image */}
+                <img 
+                  src={siteGallery[currentGalleryIndex].imageUrl} 
+                  alt={siteGallery[currentGalleryIndex].title} 
+                  className="slider-image-contain"
+                />
+                
+                <div className="slider-overlay">
+                  <h3>{siteGallery[currentGalleryIndex].title}</h3>
                 </div>
               </motion.div>
-            ))}
+            </AnimatePresence>
+          </div>
+          
+          <div style={{ textAlign: 'center', marginTop: '3rem' }}>
+            <a href="/gallery" className="btn btn-primary btn-lg">View Full Photo Gallery</a>
           </div>
         </div>
       </section>
