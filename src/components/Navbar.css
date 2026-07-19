@@ -12,6 +12,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 1rem;
   height: 70px;
 }
 
@@ -79,7 +80,7 @@
   display: none;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   .desktop-nav {
     display: flex;
     align-items: center;
@@ -87,7 +88,7 @@
   }
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 1280px) {
   .desktop-nav {
     gap: 2rem;
   }
@@ -141,7 +142,7 @@
   justify-content: center;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   .mobile-toggle {
     display: none;
   }
@@ -153,7 +154,7 @@
   gap: 1rem;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   .mobile-controls {
     display: none;
   }
@@ -226,7 +227,7 @@
 [data-theme="dark"] .theme-toggle-btn:hover {
   background-color: rgba(255, 255, 255, 0.1);
 }
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   .mobile-theme-btn {
     display: none;
   }
