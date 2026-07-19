@@ -1,5 +1,5 @@
 import Hero from '../components/Hero';
-import { dummyPrograms } from '../data/dummy';
+import { sitePrograms } from '../data/siteData';
 import { FlaskConical, Music, Trophy, Monitor } from 'lucide-react';
 
 const iconMap = {
@@ -26,7 +26,7 @@ const Academics = () => {
           </div>
           
           <div className="grid-2">
-            {dummyPrograms.map((program) => (
+            {sitePrograms.map((program) => (
               <div key={program.id} style={{ 
                 backgroundColor: 'var(--color-surface-light)', 
                 padding: '1.5rem', 

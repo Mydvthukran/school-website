@@ -9,7 +9,7 @@ import gallery6 from '../assets/gallery2.jpeg';
 import gallery7 from '../assets/gallery 4.jpeg';
 import gallery8 from '../assets/gallary/Screenshot 2026-07-03 215630.png';
 
-export const dummyNews = [
+export const siteNews = [
   {
     id: 1,
     title: "Annual Science Fair Winners Announced!",
@@ -33,7 +33,7 @@ export const dummyNews = [
   }
 ];
 
-export const dummyEvents = [
+export const siteEvents = [
   {
     id: 1,
     title: "Parent-Teacher Conferences",
@@ -57,7 +57,7 @@ export const dummyEvents = [
   }
 ];
 
-export const dummyStaff = [
+export const siteStaff = [
   {
     id: 1,
     name: "Dr. Eleanor Vance",
@@ -81,7 +81,7 @@ export const dummyStaff = [
   }
 ];
 
-export const dummyPrograms = [
+export const sitePrograms = [
   {
     id: 1,
     title: "Advanced Sciences",
@@ -108,14 +108,14 @@ export const dummyPrograms = [
   }
 ];
 
-export const dummyStats = [
+export const siteStats = [
   { label: "Students", value: 1200, suffix: "+" },
   { label: "Faculty Members", value: 85, suffix: "" },
   { label: "Clubs & Activities", value: 40, suffix: "+" },
   { label: "Board Exam Passing", value: 98, suffix: "%" },
 ];
 
-export const dummyGallery = [
+export const siteGallery = [
   {
     id: 1,
     title: "Annual Sports Day",

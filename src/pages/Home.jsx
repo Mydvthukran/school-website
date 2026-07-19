@@ -1,5 +1,5 @@
 import Hero from '../components/Hero';
-import { dummyStats, dummyGallery, directorMessage, principalMessage } from '../data/dummy';
+import { siteStats, siteGallery, directorMessage, principalMessage } from '../data/siteData';
 import { GraduationCap, Users, Trophy, Quote } from 'lucide-react';
 import { motion } from 'framer-motion';
 import CountUpModule from 'react-countup';
@@ -24,7 +24,7 @@ const Home = () => {
       <section className="section stats-section">
         <div className="container">
           <div className="grid-4">
-            {dummyStats.map((stat, index) => (
+            {siteStats.map((stat, index) => (
               <motion.div 
                 key={index} 
                 className="stat-card"
@@ -140,7 +140,7 @@ const Home = () => {
             <p>A glimpse into the vibrant life at Saraswati Vidya Sr Sec School.</p>
           </div>
           <div className="gallery-grid">
-            {dummyGallery.map((item, index) => (
+            {siteGallery.map((item, index) => (
               <motion.div 
                 key={item.id} 
                 className="gallery-item"
