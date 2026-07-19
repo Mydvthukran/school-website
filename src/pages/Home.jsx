@@ -9,14 +9,7 @@ import './Home.css';
 import heroHomeImage from '../assets/hero-home.jpeg';
 
 const Home = () => {
-  const [currentGalleryIndex, setCurrentGalleryIndex] = useState(0);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentGalleryIndex((prevIndex) => (prevIndex + 1) % siteGallery.length);
-    }, 2000);
-    return () => clearInterval(timer);
-  }, []);
+  // Masonry layout doesn't need an interval timer
 
   return (
     <div className="home">
@@ -149,26 +142,22 @@ const Home = () => {
             <h2>Our Photo Gallery</h2>
             <p>A glimpse into the vibrant life at Saraswati Vidya Sr Sec School.</p>
           </div>
-          <div className="gallery-slider" style={{ maxWidth: '900px', margin: '0 auto', position: 'relative', height: '500px', overflow: 'hidden', borderRadius: '1rem', boxShadow: 'var(--shadow-lg)' }}>
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={currentGalleryIndex}
-                initial={{ opacity: 0, scale: 1.05 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.8 }}
-                style={{ position: 'absolute', inset: 0 }}
+          <div className="gallery-masonry">
+            {siteGallery.map((item, index) => (
+              <motion.div 
+                key={item.id} 
+                className="gallery-masonry-item"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1, duration: 0.5 }}
               >
-                <img 
-                  src={siteGallery[currentGalleryIndex].imageUrl} 
-                  alt={siteGallery[currentGalleryIndex].title} 
-                  style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
-                />
-                <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '2rem', background: 'linear-gradient(transparent, rgba(0,0,0,0.8))' }}>
-                  <h3 style={{ color: 'white', margin: 0, fontSize: '2rem' }}>{siteGallery[currentGalleryIndex].title}</h3>
+                <img src={item.imageUrl} alt={item.title} className="gallery-masonry-image" />
+                <div className="gallery-overlay">
+                  <h4>{item.title}</h4>
                 </div>
               </motion.div>
-            </AnimatePresence>
+            ))}
           </div>
         </div>
       </section>
