@@ -185,12 +185,24 @@
   position: relative;
   width: 100%;
   max-width: 1000px;
-  height: 500px;
+  height: 300px;
   margin: 0 auto;
   border-radius: var(--radius-lg);
   overflow: hidden;
   box-shadow: var(--shadow-lg);
   background-color: var(--color-surface-dark);
+}
+
+@media (min-width: 768px) {
+  .gallery-slider-modern {
+    height: 400px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .gallery-slider-modern {
+    height: 500px;
+  }
 }
 
 .slider-item {

@@ -13,10 +13,10 @@ const Gallery = () => {
       
       <section className="section bg-light">
         <div className="container">
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '2rem' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))', gap: '2rem' }}>
             {siteGallery.map((item) => (
               <div key={item.id} className="glass" style={{ borderRadius: '1rem', overflow: 'hidden', padding: '1rem' }}>
-                <div style={{ width: '100%', height: '300px', backgroundColor: '#000', borderRadius: '0.5rem', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <div style={{ width: '100%', height: '250px', backgroundColor: '#000', borderRadius: '0.5rem', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   <img 
                     src={item.imageUrl} 
                     alt={item.title} 
