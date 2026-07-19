@@ -50,9 +50,6 @@ const Navbar = () => {
             <button onClick={toggleTheme} className="theme-toggle-btn" aria-label="Toggle theme">
               {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
             </button>
-            <Link to="/portal" className="btn btn-outline nav-btn">
-              Portal
-            </Link>
             <Link to="/admissions" className="btn btn-primary nav-btn">
               Apply Now
             </Link>
@@ -85,9 +82,6 @@ const Navbar = () => {
             </li>
           ))}
           <li>
-            <Link to="/portal" className="btn btn-outline w-full text-center mt-4" onClick={closeMenu}>
-              Portal
-            </Link>
             <Link to="/admissions" className="btn btn-primary w-full text-center mt-2" onClick={closeMenu}>
               Apply Now
             </Link>
