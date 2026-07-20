@@ -53,7 +53,7 @@ const Footer = () => {
             <ul className="contact-info">
               <li>
                 <MapPin size={16} />
-                <span>Tankri, Haryana 123412</span>
+                <span>Village Tankari, District Rewari, Haryana 123412</span>
               </li>
               <li>
                 <Phone size={16} />

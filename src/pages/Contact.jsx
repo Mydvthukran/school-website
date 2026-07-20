@@ -28,7 +28,7 @@ const Contact = () => {
                   </div>
                   <div>
                     <h3 style={{ marginBottom: '0.5rem' }}>Our Campus</h3>
-                    <p style={{ color: 'var(--color-text-muted)' }}>123 Education Lane<br/>Learning City, ED 45678</p>
+                    <p style={{ color: 'var(--color-text-muted)' }}>Village Tankari, District Rewari<br/>Haryana, 123412</p>
                   </div>
                 </div>
 
