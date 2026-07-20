@@ -162,7 +162,7 @@ export const siteGallery = [
 ];
 
 export const directorMessage = {
-  name: "Mr. Pardeep Rao",
+  name: "Mr. Pradeep Rao",
   title: "Director, Saraswati Vidya Sr Sec School",
   message: "Education is not merely the filling of a pail, but the lighting of a fire. At Saraswati Vidya Sr Sec School, our goal is to ignite that spark of curiosity in every child. We are committed to providing a holistic education that empowers our students to be compassionate, innovative, and resilient leaders of tomorrow. Our dedicated faculty works tirelessly to create an environment where every student is encouraged to reach their full potential, both academically and personally.",
   imageUrl: directorPic

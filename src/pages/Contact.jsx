@@ -38,7 +38,7 @@ const Contact = () => {
                   </div>
                   <div>
                     <h3 style={{ marginBottom: '0.5rem' }}>Phone</h3>
-                    <p style={{ color: 'var(--color-text-muted)' }}>(555) 123-4567<br/>(555) 987-6543 (Admissions)</p>
+                    <p style={{ color: 'var(--color-text-muted)' }}>9992855644<br/>9468458204</p>
                   </div>
                 </div>
 
@@ -48,7 +48,7 @@ const Contact = () => {
                   </div>
                   <div>
                     <h3 style={{ marginBottom: '0.5rem' }}>Email</h3>
-                    <p style={{ color: 'var(--color-text-muted)' }}>info@saraswatividya.edu<br/>admissions@saraswatividya.edu</p>
+                    <p style={{ color: 'var(--color-text-muted)' }}>svhstankri@gmail.com</p>
                   </div>
                 </div>
 

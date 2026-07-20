@@ -57,11 +57,11 @@ const Footer = () => {
               </li>
               <li>
                 <Phone size={16} />
-                <span>(555) 123-4567</span>
+                <span>9992855644, 9468458204</span>
               </li>
               <li>
                 <Mail size={16} />
-                <span>info@saraswatividya.edu</span>
+                <span>svhstankri@gmail.com</span>
               </li>
             </ul>
           </div>
