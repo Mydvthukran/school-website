@@ -11,6 +11,8 @@ import Admissions from './pages/Admissions';
 import Contact from './pages/Contact';
 import Careers from './pages/Careers';
 import Gallery from './pages/Gallery';
+import Events from './pages/Events';
+import Staff from './pages/Staff';
 
 // Admin pages
 import AdminLogin from './pages/admin/AdminLogin';
@@ -35,6 +37,8 @@ function App() {
             <Route path="about" element={<About />} />
             <Route path="academics" element={<Academics />} />
             <Route path="admissions" element={<Admissions />} />
+            <Route path="events" element={<Events />} />
+            <Route path="staff" element={<Staff />} />
             <Route path="careers" element={<Careers />} />
             <Route path="contact" element={<Contact />} />
             <Route path="gallery" element={<Gallery />} />

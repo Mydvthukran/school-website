@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import AdminLayout from './AdminLayout';
-import { newsApi, eventsApi, staffApi, submissionsApi } from '../../services/api';
+import { eventsApi, staffApi, submissionsApi } from '../../services/api';
 import { Newspaper, Calendar, Users, Mail, Briefcase, GraduationCap, ArrowRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
@@ -29,8 +29,7 @@ const AdminDashboard = () => {
   useEffect(() => {
     const load = async () => {
       try {
-        const [news, events, staff, subs] = await Promise.all([
-          newsApi.getAll(),
+        const [events, staff, subs] = await Promise.all([
           eventsApi.getAll(),
           staffApi.getAll(),
           submissionsApi.getAll(),
