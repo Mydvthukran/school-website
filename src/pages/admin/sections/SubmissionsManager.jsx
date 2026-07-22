@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import AdminLayout from '../AdminLayout';
 import { submissionsApi } from '../../../services/api';
-import { Mail, GraduationCap, Briefcase, Trash2, RefreshCw, Eye, X } from 'lucide-react';
+import { Mail, GraduationCap, Briefcase, Trash2, RefreshCw, Eye, X, FileText } from 'lucide-react';
 
 const formatDate = (iso) => {
   if (!iso) return '—';
@@ -256,6 +256,17 @@ const SubmissionsManager = () => {
               <td><span className={`admin-badge ${badgeClass[s.status] || 'admin-badge-new'}`}>{s.status}</span></td>
               <td>
                 <div style={{ display: 'flex', gap: '0.4rem' }}>
+                  {s.resumeUrl && (
+                    <a 
+                      href={s.resumeUrl} 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      className="admin-btn admin-btn-ghost admin-btn-sm" 
+                      title="View Resume"
+                    >
+                      <FileText size={12} /> Resume
+                    </a>
+                  )}
                   <button className="admin-btn admin-btn-ghost admin-btn-sm" onClick={() => setSelected(s)}>
                     <Eye size={12} /> View
                   </button>
