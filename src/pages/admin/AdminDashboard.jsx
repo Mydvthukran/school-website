@@ -21,7 +21,7 @@ const StatCard = ({ icon: Icon, label, value, color, path, navigate }) => (
 const AdminDashboard = () => {
   const navigate = useNavigate();
   const [counts, setCounts] = useState({
-    news: null, events: null, staff: null,
+    events: null, staff: null,
     contacts: null, admissions: null, careers: null
   });
   const [loading, setLoading] = useState(true);
@@ -35,7 +35,6 @@ const AdminDashboard = () => {
           submissionsApi.getAll(),
         ]);
         setCounts({
-          news: news.length,
           events: events.length,
           staff: staff.length,
           contacts: subs.contact_submissions?.length ?? 0,
@@ -65,7 +64,6 @@ const AdminDashboard = () => {
       </div>
 
       <div className="admin-stats-grid">
-        <StatCard icon={Newspaper} label="News Articles" value={counts.news} color="#3b82f6" path="/admin/news" navigate={navigate} />
         <StatCard icon={Calendar} label="Events" value={counts.events} color="#8b5cf6" path="/admin/events" navigate={navigate} />
         <StatCard icon={Users} label="Staff Members" value={counts.staff} color="#10b981" path="/admin/staff" navigate={navigate} />
         <StatCard icon={Mail} label="Contact Messages" value={counts.contacts} color="#f59e0b" path="/admin/submissions" navigate={navigate} />
