@@ -14,7 +14,7 @@ const Gallery = require('./models/Gallery');
 const Stat    = require('./models/Stat');
 const Message = require('./models/Message');
 const { ContactSubmission, AdmissionApplication, CareerApplication } = require('./models/Submission');
-const { cloudinary, upload } = require('./cloudinary');
+const { cloudinary, upload, uploadDoc } = require('./cloudinary');
 
 const app        = express();
 const PORT       = process.env.PORT       || 5000;
@@ -82,6 +82,17 @@ app.post('/api/upload', authenticateToken, upload.single('image'), (req, res) =>
   res.json({
     url:       req.file.path,          // Cloudinary secure URL
     public_id: req.file.filename,      // Cloudinary public_id (for deletion)
+  });
+});
+
+// POST /api/upload/resume
+// Public — for applicants uploading resumes
+// Accepts: multipart/form-data with field name "resume"
+app.post('/api/upload/resume', uploadDoc.single('resume'), (req, res) => {
+  if (!req.file) return res.status(400).json({ error: 'No resume file provided.' });
+  res.json({
+    url:       req.file.path,
+    public_id: req.file.filename,
   });
 });
 

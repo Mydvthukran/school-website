@@ -132,3 +132,22 @@ export async function uploadImage(file, folder = 'uploads') {
 
   return res.json(); // { url, public_id }
 }
+
+// ─── Document Upload via Cloudinary ──────────────────────────
+// Public upload for resumes
+export async function uploadResume(file) {
+  const formData = new FormData();
+  formData.append('resume', file);
+
+  const res = await fetch(`${BASE_URL}/upload/resume`, {
+    method: 'POST',
+    body: formData,
+  });
+
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({ error: res.statusText }));
+    throw new Error(err.error || 'Resume upload failed');
+  }
+
+  return res.json(); // { url, public_id }
+}

@@ -37,4 +37,29 @@ const upload = multer({
   },
 });
 
-module.exports = { cloudinary, upload };
+const storageDoc = new CloudinaryStorage({
+  cloudinary,
+  params: async (req, file) => {
+    return {
+      folder: 'saraswati-vidya/resumes',
+      resource_type: 'auto',
+      allowed_formats: ['pdf', 'doc', 'docx'],
+      public_id: `${Date.now()}-${file.originalname.replace(/\.[^/.]+$/, '').replace(/\s+/g, '-')}`,
+    };
+  },
+});
+
+const uploadDoc = multer({
+  storage: storageDoc,
+  limits: { fileSize: 5 * 1024 * 1024 },
+  fileFilter: (req, file, cb) => {
+    const allowedTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+    if (allowedTypes.includes(file.mimetype)) {
+      cb(null, true);
+    } else {
+      cb(new Error('Only PDF, DOC, and DOCX files are allowed.'), false);
+    }
+  },
+});
+
+module.exports = { cloudinary, upload, uploadDoc };

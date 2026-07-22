@@ -3,7 +3,7 @@ import Hero from '../components/Hero';
 import { Briefcase, Heart, BookOpen, CheckCircle, Upload, AlertCircle, Loader } from 'lucide-react';
 import heroHomeImage from '../assets/hero-home.jpeg';
 import './Careers.css';
-import { submitCareer } from '../services/api';
+import { submitCareer, uploadResume } from '../services/api';
 
 const categoryData = {
   teaching: {
@@ -46,6 +46,7 @@ const Careers = () => {
     subCategory: '',
     profile: ''
   });
+  const [resumeFile, setResumeFile] = useState(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -60,10 +61,21 @@ const Careers = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!resumeFile) {
+      setStatus('error');
+      setErrorMsg('Please upload your resume.');
+      return;
+    }
+    
     setStatus('loading');
     setErrorMsg('');
     try {
-      await submitCareer(formData);
+      // 1. Upload Resume
+      const uploadRes = await uploadResume(resumeFile);
+      const resumeUrl = uploadRes.url;
+
+      // 2. Submit Application
+      await submitCareer({ ...formData, resumeUrl });
       setStatus('success');
     } catch (err) {
       setStatus('error');
@@ -122,7 +134,7 @@ const Careers = () => {
                   <CheckCircle size={64} className="success-icon" />
                   <h2>Application Submitted!</h2>
                   <p>Thank you, {formData.firstName}! Your application for the <strong>{formData.profile.toUpperCase()}</strong> position has been received. Our HR team will be in touch with you shortly.</p>
-                  <button type="button" className="btn btn-outline mt-4" onClick={() => { setStatus('idle'); setFormData({ firstName: '', lastName: '', email: '', phone: '', category: '', subCategory: '', profile: '' }); }}>Submit Another Application</button>
+                  <button type="button" className="btn btn-outline mt-4" onClick={() => { setStatus('idle'); setFormData({ firstName: '', lastName: '', email: '', phone: '', category: '', subCategory: '', profile: '' }); setResumeFile(null); }}>Submit Another Application</button>
                 </div>
               ) : (
                 <form className="application-form glass" onSubmit={handleSubmit}>
@@ -196,8 +208,18 @@ const Careers = () => {
                         <h4>Upload your Resume</h4>
                         <p>PDF, DOC, or DOCX (Max 5MB)</p>
                       </div>
-                      <input type="file" accept=".pdf,.doc,.docx" />
+                      <input 
+                        type="file" 
+                        accept=".pdf,.doc,.docx" 
+                        onChange={(e) => setResumeFile(e.target.files[0])}
+                        required
+                      />
                     </div>
+                    {resumeFile && (
+                      <p style={{ marginTop: '0.5rem', fontSize: '0.9rem', color: 'var(--text-secondary)' }}>
+                        Selected file: {resumeFile.name}
+                      </p>
+                    )}
                   </div>
 
                   {status === 'error' && (

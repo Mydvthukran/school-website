@@ -69,7 +69,15 @@ const DetailModal = ({ item, type, onClose, onStatusChange }) => {
                 <span style={{ fontSize: '0.78rem', color: '#64748b', fontWeight: '600', textTransform: 'capitalize' }}>
                   {key.replace(/([A-Z])/g, ' $1').replace(/_/g, ' ')}
                 </span>
-                <span style={{ fontSize: '0.875rem', color: '#e2e8f0', wordBreak: 'break-word' }}>{val || '—'}</span>
+                <span style={{ fontSize: '0.875rem', color: '#e2e8f0', wordBreak: 'break-word' }}>
+                  {key === 'resumeUrl' && val ? (
+                    <a href={val} target="_blank" rel="noopener noreferrer" style={{ color: '#3b82f6', textDecoration: 'underline' }}>
+                      View Resume
+                    </a>
+                  ) : (
+                    val || '—'
+                  )}
+                </span>
               </div>
             ))}
 

@@ -30,6 +30,7 @@ const CareerApplicationSchema = new mongoose.Schema({
   category:    { type: String, required: true },
   subCategory: { type: String, required: true },
   profile:     { type: String, required: true },
+  resumeUrl:   { type: String, required: true },
   status: { type: String, enum: ['new', 'reviewed', 'shortlisted', 'rejected'], default: 'new' },
   submittedAt: { type: Date, default: Date.now },
 });
