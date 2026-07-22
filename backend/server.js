@@ -31,7 +31,7 @@ mongoose
   });
 
 // ── Middleware ────────────────────────────────────────────────
-app.use(cors({ origin: ['http://localhost:5173', 'http://localhost:4173'] }));
+app.use(cors({ origin: ['http://localhost:5173', 'http://localhost:4173', 'https://saraswatividyaschool.vercel.app'] }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
