@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import AdminLayout from '../AdminLayout';
-import { galleryApi } from '../../../services/api';
-import { Plus, Pencil, Trash2, X, Image } from 'lucide-react';
+import { galleryApi, uploadImage } from '../../../services/api';
+import { Plus, Pencil, Trash2, X, Image, Upload, Loader } from 'lucide-react';
 
 const empty = { title: '', imageUrl: '' };
 
@@ -12,7 +12,10 @@ const GalleryManager = () => {
   const [form, setForm] = useState(empty);
   const [editId, setEditId] = useState(null);
   const [saving, setSaving] = useState(false);
+  const [uploading, setUploading] = useState(false);
   const [error, setError] = useState('');
+  const [preview, setPreview] = useState('');
+  const fileRef = useRef();
 
   const fetchData = async () => {
     setLoading(true);
@@ -22,12 +25,29 @@ const GalleryManager = () => {
 
   useEffect(() => { fetchData(); }, []);
 
-  const openAdd = () => { setForm(empty); setEditId(null); setModal('add'); };
-  const openEdit = (item) => { setForm(item); setEditId(item.id); setModal('edit'); };
-  const closeModal = () => { setModal(null); setForm(empty); setEditId(null); };
+  const openAdd = () => { setForm(empty); setEditId(null); setPreview(''); setModal('add'); };
+  const openEdit = (item) => { setForm(item); setEditId(item.id); setPreview(item.imageUrl); setModal('edit'); };
+  const closeModal = () => { setModal(null); setForm(empty); setEditId(null); setPreview(''); };
+
+  const handleFileChange = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    setUploading(true);
+    setError('');
+    try {
+      const { url } = await uploadImage(file, 'gallery');
+      setForm((f) => ({ ...f, imageUrl: url }));
+      setPreview(url);
+    } catch (err) {
+      setError('Upload failed: ' + err.message);
+    } finally {
+      setUploading(false);
+    }
+  };
 
   const handleSave = async (e) => {
     e.preventDefault();
+    if (!form.imageUrl) { setError('Please upload or enter an image.'); return; }
     setSaving(true);
     try {
       if (modal === 'add') {
@@ -109,16 +129,53 @@ const GalleryManager = () => {
                 <label>Caption / Title *</label>
                 <input type="text" required value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} placeholder="Annual Sports Day" />
               </div>
+
+              {/* Upload section */}
               <div className="admin-field">
-                <label>Image URL *</label>
-                <input type="url" required value={form.imageUrl} onChange={(e) => setForm({ ...form, imageUrl: e.target.value })} placeholder="https://..." />
+                <label>Photo</label>
+                <div
+                  onClick={() => fileRef.current?.click()}
+                  style={{
+                    border: '2px dashed #334155', borderRadius: 10, padding: '1.5rem',
+                    textAlign: 'center', cursor: 'pointer', background: '#0f172a',
+                    transition: 'border-color 0.2s',
+                  }}
+                  onMouseEnter={(e) => e.currentTarget.style.borderColor = '#3b82f6'}
+                  onMouseLeave={(e) => e.currentTarget.style.borderColor = '#334155'}
+                >
+                  {uploading ? (
+                    <div style={{ color: '#3b82f6', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}>
+                      <Loader size={18} className="spin" /> Uploading to Cloudinary...
+                    </div>
+                  ) : preview ? (
+                    <img src={preview} alt="Preview" style={{ maxHeight: 160, maxWidth: '100%', borderRadius: 8, objectFit: 'cover' }} />
+                  ) : (
+                    <div style={{ color: '#475569' }}>
+                      <Upload size={28} style={{ margin: '0 auto 0.5rem' }} />
+                      <p style={{ margin: 0, fontSize: '0.85rem' }}>Click to upload image</p>
+                      <p style={{ margin: '0.25rem 0 0', fontSize: '0.75rem', color: '#334155' }}>JPG, PNG, WebP · Max 8MB</p>
+                    </div>
+                  )}
+                </div>
+                <input ref={fileRef} type="file" accept="image/*" style={{ display: 'none' }} onChange={handleFileChange} />
               </div>
-              {form.imageUrl && (
-                <img src={form.imageUrl} alt="Preview" style={{ width: '100%', height: 160, objectFit: 'cover', borderRadius: 8 }} onError={(e) => { e.target.style.display = 'none'; }} />
-              )}
+
+              {/* OR enter URL manually */}
+              <div className="admin-field">
+                <label style={{ fontSize: '0.75rem', color: '#475569' }}>— or paste an image URL —</label>
+                <input
+                  type="url"
+                  value={form.imageUrl}
+                  onChange={(e) => { setForm({ ...form, imageUrl: e.target.value }); setPreview(e.target.value); }}
+                  placeholder="https://..."
+                />
+              </div>
+
+              {error && <div className="admin-alert admin-alert-error">{error}</div>}
+
               <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'flex-end' }}>
                 <button type="button" className="admin-btn admin-btn-secondary" onClick={closeModal}>Cancel</button>
-                <button type="submit" className="admin-btn admin-btn-primary" disabled={saving}>
+                <button type="submit" className="admin-btn admin-btn-primary" disabled={saving || uploading}>
                   {saving ? 'Saving...' : modal === 'add' ? 'Add Photo' : 'Save Changes'}
                 </button>
               </div>

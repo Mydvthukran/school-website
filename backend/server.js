@@ -15,6 +15,7 @@ const Gallery = require('./models/Gallery');
 const Stat    = require('./models/Stat');
 const Message = require('./models/Message');
 const { ContactSubmission, AdmissionApplication, CareerApplication } = require('./models/Submission');
+const { cloudinary, upload } = require('./cloudinary');
 
 const app        = express();
 const PORT       = process.env.PORT       || 5000;
@@ -69,7 +70,32 @@ app.get('/api/health', (req, res) => {
     status: 'ok',
     message: 'Saraswati Vidya API is running.',
     db: mongoose.connection.readyState === 1 ? 'connected' : 'disconnected',
+    cloudinary: process.env.CLOUDINARY_CLOUD_NAME ? 'configured' : 'not configured',
   });
+});
+
+// ── IMAGE UPLOAD (Cloudinary) ─────────────────────────────────
+// POST /api/upload?folder=gallery|staff|messages
+// Protected — admin only
+// Accepts: multipart/form-data with field name "image"
+app.post('/api/upload', authenticateToken, upload.single('image'), (req, res) => {
+  if (!req.file) return res.status(400).json({ error: 'No image file provided.' });
+  res.json({
+    url:       req.file.path,          // Cloudinary secure URL
+    public_id: req.file.filename,      // Cloudinary public_id (for deletion)
+  });
+});
+
+// DELETE image from Cloudinary (admin only)
+app.delete('/api/upload', authenticateToken, async (req, res) => {
+  const { public_id } = req.body;
+  if (!public_id) return res.status(400).json({ error: 'public_id is required.' });
+  try {
+    await cloudinary.uploader.destroy(public_id);
+    res.json({ success: true });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
 // ── AUTH ──────────────────────────────────────────────────────

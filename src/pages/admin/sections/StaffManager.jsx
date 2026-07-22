@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import AdminLayout from '../AdminLayout';
-import { staffApi } from '../../../services/api';
-import { Plus, Pencil, Trash2, X } from 'lucide-react';
+import { staffApi, uploadImage } from '../../../services/api';
+import { Plus, Pencil, Trash2, X, Upload, Loader } from 'lucide-react';
 
 const empty = { name: '', role: '', bio: '', imageUrl: '' };
 
@@ -12,7 +12,10 @@ const StaffManager = () => {
   const [form, setForm] = useState(empty);
   const [editId, setEditId] = useState(null);
   const [saving, setSaving] = useState(false);
+  const [uploading, setUploading] = useState(false);
   const [error, setError] = useState('');
+  const [preview, setPreview] = useState('');
+  const fileRef = useRef();
 
   const fetchData = async () => {
     setLoading(true);
@@ -22,9 +25,25 @@ const StaffManager = () => {
 
   useEffect(() => { fetchData(); }, []);
 
-  const openAdd = () => { setForm(empty); setEditId(null); setModal('add'); };
-  const openEdit = (item) => { setForm(item); setEditId(item.id); setModal('edit'); };
-  const closeModal = () => { setModal(null); setForm(empty); setEditId(null); };
+  const openAdd = () => { setForm(empty); setEditId(null); setPreview(''); setModal('add'); };
+  const openEdit = (item) => { setForm(item); setEditId(item.id); setPreview(item.imageUrl); setModal('edit'); };
+  const closeModal = () => { setModal(null); setForm(empty); setEditId(null); setPreview(''); };
+
+  const handleFileChange = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    setUploading(true);
+    setError('');
+    try {
+      const { url } = await uploadImage(file, 'staff');
+      setForm((f) => ({ ...f, imageUrl: url }));
+      setPreview(url);
+    } catch (err) {
+      setError('Upload failed: ' + err.message);
+    } finally {
+      setUploading(false);
+    }
+  };
 
   const handleSave = async (e) => {
     e.preventDefault();
@@ -123,17 +142,51 @@ const StaffManager = () => {
                   <input type="text" required value={form.role} onChange={(e) => setForm({ ...form, role: e.target.value })} placeholder="Head of Science" />
                 </div>
               </div>
+
+              {/* Photo Upload */}
               <div className="admin-field">
-                <label>Photo URL</label>
-                <input type="url" value={form.imageUrl} onChange={(e) => setForm({ ...form, imageUrl: e.target.value })} placeholder="https://..." />
+                <label>Photo</label>
+                <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+                  {/* Avatar preview */}
+                  {preview ? (
+                    <img src={preview} alt="Preview" style={{ width: 64, height: 64, borderRadius: '50%', objectFit: 'cover', border: '2px solid #334155', flexShrink: 0 }} />
+                  ) : (
+                    <div style={{ width: 64, height: 64, borderRadius: '50%', background: '#1e293b', border: '2px solid #334155', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                      <Upload size={20} color="#475569" />
+                    </div>
+                  )}
+                  <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                    <button
+                      type="button"
+                      className="admin-btn admin-btn-secondary"
+                      onClick={() => fileRef.current?.click()}
+                      disabled={uploading}
+                      style={{ width: '100%', justifyContent: 'center' }}
+                    >
+                      {uploading ? <><Loader size={13} className="spin" /> Uploading...</> : <><Upload size={13} /> Upload Photo</>}
+                    </button>
+                    <input
+                      type="url"
+                      value={form.imageUrl}
+                      onChange={(e) => { setForm({ ...form, imageUrl: e.target.value }); setPreview(e.target.value); }}
+                      placeholder="or paste URL..."
+                      style={{ background: '#0f172a', border: '1px solid #334155', borderRadius: 8, padding: '0.5rem 0.75rem', color: '#e2e8f0', fontSize: '0.8rem', outline: 'none' }}
+                    />
+                  </div>
+                </div>
+                <input ref={fileRef} type="file" accept="image/*" style={{ display: 'none' }} onChange={handleFileChange} />
               </div>
+
               <div className="admin-field">
                 <label>Bio *</label>
                 <textarea required rows={3} value={form.bio} onChange={(e) => setForm({ ...form, bio: e.target.value })} placeholder="Short biography..." />
               </div>
+
+              {error && <div className="admin-alert admin-alert-error">{error}</div>}
+
               <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'flex-end' }}>
                 <button type="button" className="admin-btn admin-btn-secondary" onClick={closeModal}>Cancel</button>
-                <button type="submit" className="admin-btn admin-btn-primary" disabled={saving}>
+                <button type="submit" className="admin-btn admin-btn-primary" disabled={saving || uploading}>
                   {saving ? 'Saving...' : modal === 'add' ? 'Add Staff' : 'Save Changes'}
                 </button>
               </div>

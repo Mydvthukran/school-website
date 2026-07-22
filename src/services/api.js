@@ -111,3 +111,31 @@ export const submissionsApi = {
   updateStatus: (type, id, data) => authRequest('PUT', `/submissions/${type}/${id}`, data),
   delete: (type, id) => authRequest('DELETE', `/submissions/${type}/${id}`),
 };
+
+// ─── Image Upload via Cloudinary ─────────────────────────────
+// folder: 'gallery' | 'staff' | 'messages'
+// Returns: { url: string, public_id: string }
+export async function uploadImage(file, folder = 'uploads') {
+  const formData = new FormData();
+  formData.append('image', file);
+
+  const res = await fetch(`${BASE_URL}/upload?folder=${folder}`, {
+    method: 'POST',
+    // Do NOT set Content-Type manually — browser sets multipart boundary automatically
+    headers: { Authorization: `Bearer ${getToken()}` },
+    body: formData,
+  });
+
+  if (res.status === 401 || res.status === 403) {
+    removeToken();
+    window.location.href = '/admin/login';
+    return;
+  }
+
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({ error: res.statusText }));
+    throw new Error(err.error || 'Image upload failed');
+  }
+
+  return res.json(); // { url, public_id }
+}
