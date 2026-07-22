@@ -45,7 +45,7 @@ const AdminLogin = () => {
               id="admin-username"
               value={credentials.username}
               onChange={(e) => setCredentials({ ...credentials, username: e.target.value })}
-              placeholder="admin"
+              placeholder="Username"
               required
               autoFocus
             />
@@ -85,7 +85,7 @@ const AdminLogin = () => {
         </form>
 
         <p style={{ textAlign: 'center', fontSize: '0.75rem', color: '#475569', marginTop: '1.5rem' }}>
-          Default: <code style={{ color: '#64748b' }}>admin / school@admin123</code>
+          Contact your administrator for login credentials.
         </p>
       </div>
     </div>

@@ -1,71 +1,81 @@
-const express = require('express');
-const cors = require('cors');
+require('dotenv').config();
+
+const express    = require('express');
+const cors       = require('cors');
 const bodyParser = require('body-parser');
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcryptjs');
-const { v4: uuidv4 } = require('uuid');
-const fs = require('fs');
-const path = require('path');
+const jwt        = require('jsonwebtoken');
+const bcrypt     = require('bcryptjs');
+const mongoose   = require('mongoose');
 
-const app = express();
-const PORT = process.env.PORT || 5000;
+// ── Models ───────────────────────────────────────────────────
+const News    = require('./models/News');
+const Event   = require('./models/Event');
+const Staff   = require('./models/Staff');
+const Gallery = require('./models/Gallery');
+const Stat    = require('./models/Stat');
+const Message = require('./models/Message');
+const { ContactSubmission, AdmissionApplication, CareerApplication } = require('./models/Submission');
+
+const app        = express();
+const PORT       = process.env.PORT       || 5000;
 const JWT_SECRET = process.env.JWT_SECRET || 'saraswati-vidya-admin-secret-2026';
+const MONGO_URI  = process.env.MONGO_URI;
 
-// ─── Middleware ──────────────────────────────────────────────
+// ── MongoDB Connection ────────────────────────────────────────
+mongoose
+  .connect(MONGO_URI)
+  .then(() => console.log('✅ MongoDB connected'))
+  .catch((err) => {
+    console.error('❌ MongoDB connection failed:', err.message);
+    process.exit(1);
+  });
+
+// ── Middleware ────────────────────────────────────────────────
 app.use(cors({ origin: ['http://localhost:5173', 'http://localhost:4173'] }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// ─── Data Helpers ────────────────────────────────────────────
-const DATA_DIR = path.join(__dirname, 'data');
+// ── Admin Credentials (loaded from .env — never hardcoded) ────
+const ADMIN_USERNAME = process.env.ADMIN_USERNAME;
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
 
-function readData(filename) {
-  const filePath = path.join(DATA_DIR, filename);
-  const raw = fs.readFileSync(filePath, 'utf-8');
-  return JSON.parse(raw);
+if (!ADMIN_USERNAME || !ADMIN_PASSWORD) {
+  console.error('❌ ADMIN_USERNAME and ADMIN_PASSWORD must be set in .env');
+  process.exit(1);
 }
 
-function writeData(filename, data) {
-  const filePath = path.join(DATA_DIR, filename);
-  fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf-8');
-}
-
-// ─── Admin Credentials (hashed password) ────────────────────
-// Default: admin / school@admin123
-// To change: update ADMIN_PASSWORD_HASH below using bcryptjs.hashSync('newpassword', 10)
 const ADMIN_USER = {
-  username: 'admin',
-  // Hash of: school@admin123
-  passwordHash: bcrypt.hashSync('school@admin123', 10),
+  username:     ADMIN_USERNAME,
+  passwordHash: bcrypt.hashSync(ADMIN_PASSWORD, 10),
 };
 
-// ─── Auth Middleware ─────────────────────────────────────────
+
+// ── Auth Middleware ───────────────────────────────────────────
 function authenticateToken(req, res, next) {
   const authHeader = req.headers['authorization'];
   const token = authHeader && authHeader.split(' ')[1];
   if (!token) return res.status(401).json({ error: 'Access denied. No token provided.' });
   try {
-    const decoded = jwt.verify(token, JWT_SECRET);
-    req.user = decoded;
+    req.user = jwt.verify(token, JWT_SECRET);
     next();
   } catch {
     return res.status(403).json({ error: 'Invalid or expired token.' });
   }
 }
 
-// ─── Health Check ────────────────────────────────────────────
+// ── Health Check ──────────────────────────────────────────────
 app.get('/api/health', (req, res) => {
-  res.json({ status: 'ok', message: 'Saraswati Vidya API is running.' });
+  res.json({
+    status: 'ok',
+    message: 'Saraswati Vidya API is running.',
+    db: mongoose.connection.readyState === 1 ? 'connected' : 'disconnected',
+  });
 });
 
-// ─── AUTH ROUTES ─────────────────────────────────────────────
+// ── AUTH ──────────────────────────────────────────────────────
 app.post('/api/auth/login', (req, res) => {
   const { username, password } = req.body;
-  if (username !== ADMIN_USER.username) {
-    return res.status(401).json({ error: 'Invalid credentials.' });
-  }
-  const valid = bcrypt.compareSync(password, ADMIN_USER.passwordHash);
-  if (!valid) {
+  if (username !== ADMIN_USER.username || !bcrypt.compareSync(password, ADMIN_USER.passwordHash)) {
     return res.status(401).json({ error: 'Invalid credentials.' });
   }
   const token = jwt.sign({ username }, JWT_SECRET, { expiresIn: '8h' });
@@ -76,57 +86,49 @@ app.get('/api/auth/verify', authenticateToken, (req, res) => {
   res.json({ valid: true, user: req.user });
 });
 
-// ─── GENERIC CRUD FACTORY ────────────────────────────────────
-function makeCrudRouter(filename, listKey) {
+// ── GENERIC CRUD FACTORY (for Mongoose models) ────────────────
+function makeCrudRouter(Model) {
   const router = express.Router();
 
   // GET all
-  router.get('/', (req, res) => {
+  router.get('/', async (req, res) => {
     try {
-      const data = readData(filename);
-      res.json(data[listKey] || data);
+      const docs = await Model.find().sort({ createdAt: -1 }).lean();
+      // Map _id → id for frontend compatibility
+      res.json(docs.map(({ _id, __v, ...rest }) => ({ id: _id.toString(), ...rest })));
     } catch (err) {
       res.status(500).json({ error: err.message });
     }
   });
 
   // POST create (protected)
-  router.post('/', authenticateToken, (req, res) => {
+  router.post('/', authenticateToken, async (req, res) => {
     try {
-      const data = readData(filename);
-      const newItem = { id: uuidv4(), ...req.body };
-      data[listKey].push(newItem);
-      writeData(filename, data);
-      res.status(201).json(newItem);
+      const doc = await Model.create(req.body);
+      const { _id, __v, ...rest } = doc.toObject();
+      res.status(201).json({ id: _id.toString(), ...rest });
     } catch (err) {
-      res.status(500).json({ error: err.message });
+      res.status(400).json({ error: err.message });
     }
   });
 
   // PUT update (protected)
-  router.put('/:id', authenticateToken, (req, res) => {
+  router.put('/:id', authenticateToken, async (req, res) => {
     try {
-      const data = readData(filename);
-      const idx = data[listKey].findIndex((item) => item.id === req.params.id);
-      if (idx === -1) return res.status(404).json({ error: 'Not found.' });
-      data[listKey][idx] = { ...data[listKey][idx], ...req.body, id: req.params.id };
-      writeData(filename, data);
-      res.json(data[listKey][idx]);
+      const doc = await Model.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true }).lean();
+      if (!doc) return res.status(404).json({ error: 'Not found.' });
+      const { _id, __v, ...rest } = doc;
+      res.json({ id: _id.toString(), ...rest });
     } catch (err) {
-      res.status(500).json({ error: err.message });
+      res.status(400).json({ error: err.message });
     }
   });
 
   // DELETE (protected)
-  router.delete('/:id', authenticateToken, (req, res) => {
+  router.delete('/:id', authenticateToken, async (req, res) => {
     try {
-      const data = readData(filename);
-      const filtered = data[listKey].filter((item) => item.id !== req.params.id);
-      if (filtered.length === data[listKey].length) {
-        return res.status(404).json({ error: 'Not found.' });
-      }
-      data[listKey] = filtered;
-      writeData(filename, data);
+      const doc = await Model.findByIdAndDelete(req.params.id);
+      if (!doc) return res.status(404).json({ error: 'Not found.' });
       res.json({ success: true });
     } catch (err) {
       res.status(500).json({ error: err.message });
@@ -136,140 +138,142 @@ function makeCrudRouter(filename, listKey) {
   return router;
 }
 
-// ─── CRUD ROUTES ─────────────────────────────────────────────
-app.use('/api/news', makeCrudRouter('news.json', 'news'));
-app.use('/api/events', makeCrudRouter('events.json', 'events'));
-app.use('/api/staff', makeCrudRouter('staff.json', 'staff'));
-app.use('/api/gallery', makeCrudRouter('gallery.json', 'gallery'));
+// ── CRUD ROUTES ───────────────────────────────────────────────
+app.use('/api/news',    makeCrudRouter(News));
+app.use('/api/events',  makeCrudRouter(Event));
+app.use('/api/staff',   makeCrudRouter(Staff));
+app.use('/api/gallery', makeCrudRouter(Gallery));
+app.use('/api/stats',   makeCrudRouter(Stat));
 
-// Stats (array with IDs)
-app.use('/api/stats', makeCrudRouter('stats.json', 'stats'));
-
-// ─── MESSAGES ROUTES (special: object, not array) ────────────
-app.get('/api/messages', (req, res) => {
+// ── MESSAGES (object, not array) ──────────────────────────────
+app.get('/api/messages', async (req, res) => {
   try {
-    res.json(readData('messages.json'));
+    const docs = await Message.find().lean();
+    // Return as { director: {...}, principal: {...} }
+    const result = {};
+    docs.forEach(({ _id, __v, ...rest }) => {
+      result[rest.role] = { id: _id.toString(), ...rest };
+    });
+    res.json(result);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 });
 
-app.put('/api/messages/:role', authenticateToken, (req, res) => {
+app.put('/api/messages/:role', authenticateToken, async (req, res) => {
+  const { role } = req.params;
+  if (!['director', 'principal'].includes(role)) {
+    return res.status(400).json({ error: 'Role must be director or principal.' });
+  }
   try {
-    const { role } = req.params; // 'director' or 'principal'
-    if (!['director', 'principal'].includes(role)) {
-      return res.status(400).json({ error: 'Role must be director or principal.' });
-    }
-    const data = readData('messages.json');
-    data[role] = { ...data[role], ...req.body };
-    writeData('messages.json', data);
-    res.json(data[role]);
+    const doc = await Message.findOneAndUpdate(
+      { role },
+      { ...req.body, role },
+      { new: true, upsert: true, runValidators: true }
+    ).lean();
+    const { _id, __v, ...rest } = doc;
+    res.json({ id: _id.toString(), ...rest });
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(400).json({ error: err.message });
   }
 });
 
-// ─── FORM SUBMISSIONS ─────────────────────────────────────────
+// ── FORM SUBMISSIONS ──────────────────────────────────────────
 
-// Contact form (public POST, protected GET)
-app.post('/api/contact', (req, res) => {
+// Contact (public)
+app.post('/api/contact', async (req, res) => {
   try {
-    const data = readData('submissions.json');
-    const entry = {
-      id: uuidv4(),
-      submittedAt: new Date().toISOString(),
-      status: 'unread',
-      ...req.body,
-    };
-    data.contact_submissions.push(entry);
-    writeData('submissions.json', data);
+    await ContactSubmission.create({ ...req.body, submittedAt: new Date(), status: 'unread' });
     res.status(201).json({ success: true, message: 'Message received. We will get back to you soon!' });
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(400).json({ error: err.message });
   }
 });
 
-// Admissions form (public POST, protected GET)
-app.post('/api/admissions', (req, res) => {
+// Admissions (public)
+app.post('/api/admissions', async (req, res) => {
   try {
-    const data = readData('submissions.json');
-    const entry = {
-      id: uuidv4(),
-      submittedAt: new Date().toISOString(),
-      status: 'pending',
-      ...req.body,
-    };
-    data.admission_applications.push(entry);
-    writeData('submissions.json', data);
+    await AdmissionApplication.create({ ...req.body, submittedAt: new Date(), status: 'pending' });
     res.status(201).json({ success: true, message: 'Application submitted successfully!' });
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(400).json({ error: err.message });
   }
 });
 
-// Careers form (public POST, protected GET)
-app.post('/api/careers', (req, res) => {
+// Careers (public)
+app.post('/api/careers', async (req, res) => {
   try {
-    const data = readData('submissions.json');
-    const entry = {
-      id: uuidv4(),
-      submittedAt: new Date().toISOString(),
-      status: 'new',
-      ...req.body,
-    };
-    data.career_applications.push(entry);
-    writeData('submissions.json', data);
+    await CareerApplication.create({ ...req.body, submittedAt: new Date(), status: 'new' });
     res.status(201).json({ success: true, message: 'Application submitted! Our HR team will contact you.' });
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(400).json({ error: err.message });
   }
 });
 
 // GET all submissions (admin only)
-app.get('/api/submissions', authenticateToken, (req, res) => {
+app.get('/api/submissions', authenticateToken, async (req, res) => {
   try {
-    res.json(readData('submissions.json'));
+    const [contacts, admissions, careers] = await Promise.all([
+      ContactSubmission.find().sort({ submittedAt: -1 }).lean(),
+      AdmissionApplication.find().sort({ submittedAt: -1 }).lean(),
+      CareerApplication.find().sort({ submittedAt: -1 }).lean(),
+    ]);
+
+    const toFrontend = (arr) =>
+      arr.map(({ _id, __v, ...rest }) => ({
+        id: _id.toString(),
+        submittedAt: rest.submittedAt?.toISOString?.() || rest.submittedAt,
+        ...rest,
+      }));
+
+    res.json({
+      contact_submissions:    toFrontend(contacts),
+      admission_applications: toFrontend(admissions),
+      career_applications:    toFrontend(careers),
+    });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 });
 
 // UPDATE submission status (admin only)
-app.put('/api/submissions/:type/:id', authenticateToken, (req, res) => {
+const submissionModelMap = {
+  contact_submissions:    ContactSubmission,
+  admission_applications: AdmissionApplication,
+  career_applications:    CareerApplication,
+};
+
+app.put('/api/submissions/:type/:id', authenticateToken, async (req, res) => {
+  const { type, id } = req.params;
+  const Model = submissionModelMap[type];
+  if (!Model) return res.status(400).json({ error: 'Invalid submission type.' });
   try {
-    const { type, id } = req.params;
-    const validTypes = ['contact_submissions', 'admission_applications', 'career_applications'];
-    if (!validTypes.includes(type)) return res.status(400).json({ error: 'Invalid submission type.' });
-    const data = readData('submissions.json');
-    const idx = data[type].findIndex((s) => s.id === id);
-    if (idx === -1) return res.status(404).json({ error: 'Submission not found.' });
-    data[type][idx] = { ...data[type][idx], ...req.body };
-    writeData('submissions.json', data);
-    res.json(data[type][idx]);
+    const doc = await Model.findByIdAndUpdate(id, req.body, { new: true }).lean();
+    if (!doc) return res.status(404).json({ error: 'Submission not found.' });
+    const { _id, __v, ...rest } = doc;
+    res.json({ id: _id.toString(), ...rest });
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(400).json({ error: err.message });
   }
 });
 
 // DELETE a submission (admin only)
-app.delete('/api/submissions/:type/:id', authenticateToken, (req, res) => {
+app.delete('/api/submissions/:type/:id', authenticateToken, async (req, res) => {
+  const { type, id } = req.params;
+  const Model = submissionModelMap[type];
+  if (!Model) return res.status(400).json({ error: 'Invalid submission type.' });
   try {
-    const { type, id } = req.params;
-    const validTypes = ['contact_submissions', 'admission_applications', 'career_applications'];
-    if (!validTypes.includes(type)) return res.status(400).json({ error: 'Invalid submission type.' });
-    const data = readData('submissions.json');
-    const filtered = data[type].filter((s) => s.id !== id);
-    data[type] = filtered;
-    writeData('submissions.json', data);
+    const doc = await Model.findByIdAndDelete(id);
+    if (!doc) return res.status(404).json({ error: 'Submission not found.' });
     res.json({ success: true });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 });
 
-// ─── Start ───────────────────────────────────────────────────
+// ── Start ─────────────────────────────────────────────────────
 app.listen(PORT, () => {
-  console.log(`\n✅ Saraswati Vidya API running at http://localhost:${PORT}`);
+  console.log(`\n🚀 Saraswati Vidya API running at http://localhost:${PORT}`);
   console.log(`   Admin login: admin / school@admin123`);
   console.log(`   Health check: http://localhost:${PORT}/api/health\n`);
 });
