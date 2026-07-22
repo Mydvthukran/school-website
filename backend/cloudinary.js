@@ -62,4 +62,32 @@ const uploadDoc = multer({
   },
 });
 
-module.exports = { cloudinary, upload, uploadDoc };
+const extractPublicId = (url) => {
+  if (!url || typeof url !== 'string') return null;
+  try {
+    const uploadIndex = url.indexOf('/upload/');
+    if (uploadIndex === -1) return null;
+    const pathPart = url.substring(uploadIndex + 8);
+    // Remove version if present (e.g., v172153242/)
+    const versionCleaned = pathPart.replace(/^v\d+\//, '');
+    // Remove extension
+    return versionCleaned.substring(0, versionCleaned.lastIndexOf('.')) || versionCleaned;
+  } catch (err) {
+    return null;
+  }
+};
+
+const deleteFromCloudinary = async (url) => {
+  const publicId = extractPublicId(url);
+  if (!publicId) return;
+  try {
+    // Determine if raw or image (resumes might be raw, but usually Cloudinary destroy handles both if resource_type isn't strictly required, 
+    // or we might need resource_type: 'raw' for docs. Let's try default first, if fail, try raw)
+    await cloudinary.uploader.destroy(publicId);
+    await cloudinary.uploader.destroy(publicId, { resource_type: 'raw' });
+  } catch (err) {
+    console.error('Cloudinary deletion error:', err.message);
+  }
+};
+
+module.exports = { cloudinary, upload, uploadDoc, deleteFromCloudinary };

@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const jwt        = require('jsonwebtoken');
 const bcrypt     = require('bcryptjs');
 const mongoose   = require('mongoose');
+const rateLimit  = require('express-rate-limit');
 
 // ── Models ───────────────────────────────────────────────────
 const Event   = require('./models/Event');
@@ -14,7 +15,7 @@ const Gallery = require('./models/Gallery');
 const Stat    = require('./models/Stat');
 const Message = require('./models/Message');
 const { ContactSubmission, AdmissionApplication, CareerApplication } = require('./models/Submission');
-const { cloudinary, upload, uploadDoc } = require('./cloudinary');
+const { cloudinary, upload, uploadDoc, deleteFromCloudinary } = require('./cloudinary');
 
 const app        = express();
 const PORT       = process.env.PORT       || 5000;
@@ -73,6 +74,19 @@ app.get('/api/health', (req, res) => {
   });
 });
 
+// ── Rate Limiters ──────────────────────────────────────────────
+const publicUploadLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 10, // limit each IP to 10 resume uploads per windowMs
+  message: { error: 'Too many resumes uploaded from this IP, please try again after 15 minutes.' }
+});
+
+const submissionLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 20, // limit each IP to 20 form submissions per windowMs
+  message: { error: 'Too many submissions from this IP, please try again later.' }
+});
+
 // ── IMAGE UPLOAD (Cloudinary) ─────────────────────────────────
 // POST /api/upload?folder=gallery|staff|messages
 // Protected — admin only
@@ -88,7 +102,7 @@ app.post('/api/upload', authenticateToken, upload.single('image'), (req, res) =>
 // POST /api/upload/resume
 // Public — for applicants uploading resumes
 // Accepts: multipart/form-data with field name "resume"
-app.post('/api/upload/resume', uploadDoc.single('resume'), (req, res) => {
+app.post('/api/upload/resume', publicUploadLimiter, uploadDoc.single('resume'), (req, res) => {
   if (!req.file) return res.status(400).json({ error: 'No resume file provided.' });
   res.json({
     url:       req.file.path,
@@ -151,8 +165,14 @@ function makeCrudRouter(Model) {
   // PUT update (protected)
   router.put('/:id', authenticateToken, async (req, res) => {
     try {
+      const oldDoc = await Model.findById(req.params.id).lean();
       const doc = await Model.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true }).lean();
       if (!doc) return res.status(404).json({ error: 'Not found.' });
+      
+      if (oldDoc && oldDoc.imageUrl && req.body.imageUrl && oldDoc.imageUrl !== req.body.imageUrl) {
+        deleteFromCloudinary(oldDoc.imageUrl);
+      }
+      
       const { _id, __v, ...rest } = doc;
       res.json({ id: _id.toString(), ...rest });
     } catch (err) {
@@ -165,6 +185,11 @@ function makeCrudRouter(Model) {
     try {
       const doc = await Model.findByIdAndDelete(req.params.id);
       if (!doc) return res.status(404).json({ error: 'Not found.' });
+      
+      if (doc.imageUrl) {
+        deleteFromCloudinary(doc.imageUrl);
+      }
+      
       res.json({ success: true });
     } catch (err) {
       res.status(500).json({ error: err.message });
@@ -201,11 +226,17 @@ app.put('/api/messages/:role', authenticateToken, async (req, res) => {
     return res.status(400).json({ error: 'Role must be director or principal.' });
   }
   try {
+    const oldDoc = await Message.findOne({ role }).lean();
     const doc = await Message.findOneAndUpdate(
       { role },
       { ...req.body, role },
       { new: true, upsert: true, runValidators: true }
     ).lean();
+    
+    if (oldDoc && oldDoc.imageUrl && req.body.imageUrl && oldDoc.imageUrl !== req.body.imageUrl) {
+      deleteFromCloudinary(oldDoc.imageUrl);
+    }
+    
     const { _id, __v, ...rest } = doc;
     res.json({ id: _id.toString(), ...rest });
   } catch (err) {
@@ -216,7 +247,7 @@ app.put('/api/messages/:role', authenticateToken, async (req, res) => {
 // ── FORM SUBMISSIONS ──────────────────────────────────────────
 
 // Contact (public)
-app.post('/api/contact', async (req, res) => {
+app.post('/api/contact', submissionLimiter, async (req, res) => {
   try {
     await ContactSubmission.create({ ...req.body, submittedAt: new Date(), status: 'unread' });
     res.status(201).json({ success: true, message: 'Message received. We will get back to you soon!' });
@@ -226,7 +257,7 @@ app.post('/api/contact', async (req, res) => {
 });
 
 // Admissions (public)
-app.post('/api/admissions', async (req, res) => {
+app.post('/api/admissions', submissionLimiter, async (req, res) => {
   try {
     await AdmissionApplication.create({ ...req.body, submittedAt: new Date(), status: 'pending' });
     res.status(201).json({ success: true, message: 'Application submitted successfully!' });
@@ -236,7 +267,7 @@ app.post('/api/admissions', async (req, res) => {
 });
 
 // Careers (public)
-app.post('/api/careers', async (req, res) => {
+app.post('/api/careers', submissionLimiter, async (req, res) => {
   try {
     await CareerApplication.create({ ...req.body, submittedAt: new Date(), status: 'new' });
     res.status(201).json({ success: true, message: 'Application submitted! Our HR team will contact you.' });
@@ -249,9 +280,9 @@ app.post('/api/careers', async (req, res) => {
 app.get('/api/submissions', authenticateToken, async (req, res) => {
   try {
     const [contacts, admissions, careers] = await Promise.all([
-      ContactSubmission.find().sort({ submittedAt: -1 }).lean(),
-      AdmissionApplication.find().sort({ submittedAt: -1 }).lean(),
-      CareerApplication.find().sort({ submittedAt: -1 }).lean(),
+      ContactSubmission.find().sort({ submittedAt: -1 }).limit(100).lean(),
+      AdmissionApplication.find().sort({ submittedAt: -1 }).limit(100).lean(),
+      CareerApplication.find().sort({ submittedAt: -1 }).limit(100).lean(),
     ]);
 
     const toFrontend = (arr) =>
@@ -300,6 +331,11 @@ app.delete('/api/submissions/:type/:id', authenticateToken, async (req, res) => 
   try {
     const doc = await Model.findByIdAndDelete(id);
     if (!doc) return res.status(404).json({ error: 'Submission not found.' });
+    
+    if (doc.resumeUrl) {
+      deleteFromCloudinary(doc.resumeUrl);
+    }
+    
     res.json({ success: true });
   } catch (err) {
     res.status(500).json({ error: err.message });
