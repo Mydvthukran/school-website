@@ -10,8 +10,7 @@ import './admin.css';
 const navItems = [
   { label: 'Dashboard', icon: LayoutDashboard, path: '/admin' },
   { label: 'Submissions', icon: Mail, path: '/admin/submissions', badge: null, section: 'Forms & Inquiries' },
-  { label: 'News', icon: Newspaper, path: '/admin/news', section: 'Content Management' },
-  { label: 'Events', icon: Calendar, path: '/admin/events' },
+  { label: 'Events', icon: Calendar, path: '/admin/events', section: 'Content Management' },
   { label: 'Staff', icon: Users, path: '/admin/staff' },
   { label: 'Gallery', icon: Image, path: '/admin/gallery' },
   { label: 'Statistics', icon: BarChart2, path: '/admin/stats', section: 'Settings' },

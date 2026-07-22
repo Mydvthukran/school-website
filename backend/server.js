@@ -8,7 +8,6 @@ const bcrypt     = require('bcryptjs');
 const mongoose   = require('mongoose');
 
 // ── Models ───────────────────────────────────────────────────
-const News    = require('./models/News');
 const Event   = require('./models/Event');
 const Staff   = require('./models/Staff');
 const Gallery = require('./models/Gallery');
@@ -165,7 +164,6 @@ function makeCrudRouter(Model) {
 }
 
 // ── CRUD ROUTES ───────────────────────────────────────────────
-app.use('/api/news',    makeCrudRouter(News));
 app.use('/api/events',  makeCrudRouter(Event));
 app.use('/api/staff',   makeCrudRouter(Staff));
 app.use('/api/gallery', makeCrudRouter(Gallery));

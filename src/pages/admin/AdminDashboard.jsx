@@ -83,7 +83,6 @@ const AdminDashboard = () => {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: '0.75rem' }}>
             {[
               { label: 'View All Submissions', path: '/admin/submissions', icon: Mail, count: totalSubmissions },
-              { label: 'Manage News', path: '/admin/news', icon: Newspaper },
               { label: 'Manage Events', path: '/admin/events', icon: Calendar },
               { label: 'Manage Staff', path: '/admin/staff', icon: Users },
             ].map(({ label, path, icon: Icon, count }) => (

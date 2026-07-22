@@ -62,13 +62,6 @@ export const authApi = {
 };
 
 // ─── Public data ──────────────────────────────────────────────
-export const newsApi = {
-  getAll: () => request('GET', '/news'),
-  create: (data) => authRequest('POST', '/news', data),
-  update: (id, data) => authRequest('PUT', `/news/${id}`, data),
-  delete: (id) => authRequest('DELETE', `/news/${id}`),
-};
-
 export const eventsApi = {
   getAll: () => request('GET', '/events'),
   create: (data) => authRequest('POST', '/events', data),

@@ -5,7 +5,6 @@
 require('dotenv').config();
 const mongoose = require('mongoose');
 
-const News    = require('./models/News');
 const Event   = require('./models/Event');
 const Staff   = require('./models/Staff');
 const Gallery = require('./models/Gallery');
@@ -21,7 +20,6 @@ async function seed() {
 
   // ── Clear existing data ──────────────────────────────────────
   await Promise.all([
-    News.deleteMany({}),
     Event.deleteMany({}),
     Staff.deleteMany({}),
     Gallery.deleteMany({}),
@@ -29,29 +27,6 @@ async function seed() {
     Message.deleteMany({}),
   ]);
   console.log('🧹 Cleared existing documents.');
-
-  // ── News ─────────────────────────────────────────────────────
-  await News.insertMany([
-    {
-      title: 'Annual Science Fair Winners Announced!',
-      date: '2026-06-20',
-      excerpt: "Congratulations to all the participants and winners of this year's Science Fair. The ingenuity on display was truly inspiring.",
-      imageUrl: 'https://images.unsplash.com/photo-1564426225274-124b172a6e60?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-    },
-    {
-      title: 'New Sports Complex Opening Next Month',
-      date: '2026-06-18',
-      excerpt: "Our brand new sports complex is almost ready. We can't wait to see our student athletes make the most of these world-class facilities.",
-      imageUrl: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-    },
-    {
-      title: 'Guest Speaker Series: Tech Leaders',
-      date: '2026-06-15',
-      excerpt: 'Join us this Friday for an inspiring talk by top tech leaders who will share their journey and insights with our students.',
-      imageUrl: 'https://images.unsplash.com/photo-1540317580384-e5d43616b9aa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-    },
-  ]);
-  console.log('📰 News seeded.');
 
   // ── Events ───────────────────────────────────────────────────
   await Event.insertMany([

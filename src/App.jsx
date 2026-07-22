@@ -16,7 +16,6 @@ import Gallery from './pages/Gallery';
 import AdminLogin from './pages/admin/AdminLogin';
 import AdminDashboard from './pages/admin/AdminDashboard';
 import SubmissionsManager from './pages/admin/sections/SubmissionsManager';
-import NewsManager from './pages/admin/sections/NewsManager';
 import EventsManager from './pages/admin/sections/EventsManager';
 import StaffManager from './pages/admin/sections/StaffManager';
 import GalleryManager from './pages/admin/sections/GalleryManager';
@@ -45,7 +44,6 @@ function App() {
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/admin" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>} />
           <Route path="/admin/submissions" element={<ProtectedRoute><SubmissionsManager /></ProtectedRoute>} />
-          <Route path="/admin/news" element={<ProtectedRoute><NewsManager /></ProtectedRoute>} />
           <Route path="/admin/events" element={<ProtectedRoute><EventsManager /></ProtectedRoute>} />
           <Route path="/admin/staff" element={<ProtectedRoute><StaffManager /></ProtectedRoute>} />
           <Route path="/admin/gallery" element={<ProtectedRoute><GalleryManager /></ProtectedRoute>} />
