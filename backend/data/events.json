@@ -1,0 +1,25 @@
+{
+  "events": [
+    {
+      "id": "1",
+      "title": "Parent-Teacher Conferences",
+      "date": "2026-07-10",
+      "time": "4:00 PM - 7:00 PM",
+      "location": "Main Hall"
+    },
+    {
+      "id": "2",
+      "title": "Summer Music Concert",
+      "date": "2026-07-15",
+      "time": "6:00 PM - 8:00 PM",
+      "location": "School Auditorium"
+    },
+    {
+      "id": "3",
+      "title": "Alumni Meet & Greet",
+      "date": "2026-07-22",
+      "time": "10:00 AM - 2:00 PM",
+      "location": "School Cafeteria"
+    }
+  ]
+}

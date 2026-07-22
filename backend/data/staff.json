@@ -1,0 +1,25 @@
+{
+  "staff": [
+    {
+      "id": "1",
+      "name": "Dr. Eleanor Vance",
+      "role": "Principal",
+      "bio": "Dr. Vance has over 20 years of experience in education leadership, driving innovation and excellence.",
+      "imageUrl": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      "id": "2",
+      "name": "Mr. Arthur Pendelton",
+      "role": "Head of Science",
+      "bio": "Passionate about physics and chemistry, Mr. Pendelton ensures every student gets hands-on lab experience.",
+      "imageUrl": "https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      "id": "3",
+      "name": "Ms. Sarah Jenkins",
+      "role": "Head of Arts",
+      "bio": "An accomplished artist herself, Ms. Jenkins fosters creativity and expression in all her students.",
+      "imageUrl": "https://images.unsplash.com/photo-1580894732444-8ecded7900cd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+    }
+  ]
+}

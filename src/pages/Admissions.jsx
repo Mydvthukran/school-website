@@ -1,19 +1,38 @@
 import { useState } from 'react';
 import Hero from '../components/Hero';
-import { CheckCircle2, X } from 'lucide-react';
+import { CheckCircle2, X, AlertCircle, Loader } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { submitAdmission } from '../services/api';
 
 const Admissions = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [status, setStatus] = useState('idle'); // idle | loading | success | error
+  const [errorMsg, setErrorMsg] = useState('');
+  const [formData, setFormData] = useState({
+    studentName: '', parentName: '', email: '', phone: '', grade: ''
+  });
 
-  const handleSubmit = (e) => {
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name || e.target.id]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsSubmitted(true);
-    setTimeout(() => {
-      setIsModalOpen(false);
-      setIsSubmitted(false);
-    }, 3000);
+    setStatus('loading');
+    setErrorMsg('');
+    try {
+      await submitAdmission(formData);
+      setStatus('success');
+    } catch (err) {
+      setStatus('error');
+      setErrorMsg(err.message || 'Submission failed. Please try again.');
+    }
+  };
+
+  const handleClose = () => {
+    setIsModalOpen(false);
+    setStatus('idle');
+    setFormData({ studentName: '', parentName: '', email: '', phone: '', grade: '' });
   };
 
   const steps = [
@@ -97,17 +116,18 @@ const Admissions = () => {
             color: 'var(--color-text-main)'
           }}>
             <button 
-              onClick={() => setIsModalOpen(false)}
+              onClick={handleClose}
               style={{ position: 'absolute', top: '1.5rem', right: '1.5rem', background: 'none', border: 'none', cursor: 'pointer', color: 'var(--color-text-muted)' }}
             >
               <X size={24} />
             </button>
             
-            {isSubmitted ? (
+            {status === 'success' ? (
               <div style={{ textAlign: 'center', padding: '2rem 0' }}>
                 <CheckCircle2 size={64} color="var(--color-secondary)" style={{ margin: '0 auto 1rem' }} />
                 <h3 style={{ fontSize: '1.5rem', color: 'var(--color-primary)' }}>Application Received!</h3>
                 <p style={{ color: 'var(--color-text-muted)', marginTop: '1rem' }}>Thank you for your interest. Our admissions team will contact you shortly with the next steps.</p>
+                <button className="btn btn-primary" style={{ marginTop: '1.5rem' }} onClick={handleClose}>Close</button>
               </div>
             ) : (
               <>
@@ -117,28 +137,28 @@ const Admissions = () => {
                 <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                      <label style={{ fontSize: '0.9rem', fontWeight: '500', color: 'var(--color-text-main)' }}>Student's Name *</label>
-                      <input type="text" required style={{ padding: '0.75rem', borderRadius: 'var(--radius-sm)', border: '1px solid var(--color-border)', outline: 'none' }} placeholder="Student Name" />
+                      <label style={{ fontSize: '0.9rem', fontWeight: '500' }}>Student's Name *</label>
+                      <input type="text" name="studentName" required value={formData.studentName} onChange={handleChange} style={{ padding: '0.75rem', borderRadius: 'var(--radius-sm)', border: '1px solid var(--color-border)', outline: 'none', backgroundColor: 'var(--color-surface-light)', color: 'var(--color-text-main)' }} placeholder="Student Name" />
                     </div>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                      <label style={{ fontSize: '0.9rem', fontWeight: '500', color: 'var(--color-text-main)' }}>Parent/Guardian Name *</label>
-                      <input type="text" required style={{ padding: '0.75rem', borderRadius: 'var(--radius-sm)', border: '1px solid var(--color-border)', outline: 'none' }} placeholder="Parent Name" />
+                      <label style={{ fontSize: '0.9rem', fontWeight: '500' }}>Parent/Guardian Name *</label>
+                      <input type="text" name="parentName" required value={formData.parentName} onChange={handleChange} style={{ padding: '0.75rem', borderRadius: 'var(--radius-sm)', border: '1px solid var(--color-border)', outline: 'none', backgroundColor: 'var(--color-surface-light)', color: 'var(--color-text-main)' }} placeholder="Parent Name" />
                     </div>
                   </div>
                   
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                    <label style={{ fontSize: '0.9rem', fontWeight: '500', color: 'var(--color-text-main)' }}>Email Address *</label>
-                    <input type="email" required style={{ padding: '0.75rem', borderRadius: 'var(--radius-sm)', border: '1px solid var(--color-border)', outline: 'none' }} placeholder="example@email.com" />
+                    <label style={{ fontSize: '0.9rem', fontWeight: '500' }}>Email Address *</label>
+                    <input type="email" name="email" required value={formData.email} onChange={handleChange} style={{ padding: '0.75rem', borderRadius: 'var(--radius-sm)', border: '1px solid var(--color-border)', outline: 'none', backgroundColor: 'var(--color-surface-light)', color: 'var(--color-text-main)' }} placeholder="example@email.com" />
                   </div>
                   
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                      <label style={{ fontSize: '0.9rem', fontWeight: '500', color: 'var(--color-text-main)' }}>Phone Number *</label>
-                      <input type="tel" required style={{ padding: '0.75rem', borderRadius: 'var(--radius-sm)', border: '1px solid var(--color-border)', outline: 'none' }} placeholder="+91 98765 43210" />
+                      <label style={{ fontSize: '0.9rem', fontWeight: '500' }}>Phone Number *</label>
+                      <input type="tel" name="phone" required value={formData.phone} onChange={handleChange} style={{ padding: '0.75rem', borderRadius: 'var(--radius-sm)', border: '1px solid var(--color-border)', outline: 'none', backgroundColor: 'var(--color-surface-light)', color: 'var(--color-text-main)' }} placeholder="+91 98765 43210" />
                     </div>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                      <label style={{ fontSize: '0.9rem', fontWeight: '500', color: 'var(--color-text-main)' }}>Applying for Grade *</label>
-                      <select required style={{ padding: '0.75rem', borderRadius: 'var(--radius-sm)', border: '1px solid var(--color-border)', outline: 'none', backgroundColor: 'var(--color-surface-light)', color: 'var(--color-text-main)' }}>
+                      <label style={{ fontSize: '0.9rem', fontWeight: '500' }}>Applying for Grade *</label>
+                      <select name="grade" required value={formData.grade} onChange={handleChange} style={{ padding: '0.75rem', borderRadius: 'var(--radius-sm)', border: '1px solid var(--color-border)', outline: 'none', backgroundColor: 'var(--color-surface-light)', color: 'var(--color-text-main)' }}>
                         <option value="">Select Grade</option>
                         <option value="6">Grade 6</option>
                         <option value="7">Grade 7</option>
@@ -150,9 +170,20 @@ const Admissions = () => {
                       </select>
                     </div>
                   </div>
+
+                  {status === 'error' && (
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#dc2626', fontSize: '0.9rem' }}>
+                      <AlertCircle size={16} />
+                      <span>{errorMsg}</span>
+                    </div>
+                  )}
                   
-                  <button type="submit" className="btn btn-primary" style={{ marginTop: '1rem', width: '100%', padding: '1rem', fontSize: '1rem' }}>
-                    Submit Application
+                  <button type="submit" className="btn btn-primary" style={{ marginTop: '1rem', width: '100%', padding: '1rem', fontSize: '1rem' }} disabled={status === 'loading'}>
+                    {status === 'loading' ? (
+                      <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', justifyContent: 'center' }}>
+                        <Loader size={16} className="spin" /> Submitting...
+                      </span>
+                    ) : 'Submit Application'}
                   </button>
                 </form>
               </>

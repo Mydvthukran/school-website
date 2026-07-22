@@ -1,0 +1,8 @@
+{
+  "stats": [
+    { "id": "1", "label": "Students", "value": 1200, "suffix": "+" },
+    { "id": "2", "label": "Faculty Members", "value": 85, "suffix": "" },
+    { "id": "3", "label": "Clubs & Activities", "value": 40, "suffix": "+" },
+    { "id": "4", "label": "Board Exam Passing", "value": 98, "suffix": "%" }
+  ]
+}

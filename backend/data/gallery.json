@@ -1,0 +1,9 @@
+{
+  "gallery": [
+    { "id": "1", "title": "Annual Sports Day", "imageUrl": "" },
+    { "id": "3", "title": "Cultural Festival", "imageUrl": "" },
+    { "id": "6", "title": "Art Class", "imageUrl": "" },
+    { "id": "7", "title": "Campus View", "imageUrl": "" },
+    { "id": "8", "title": "Extracurriculars", "imageUrl": "" }
+  ]
+}
