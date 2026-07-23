@@ -15,7 +15,7 @@ const AdminLogin = () => {
     setLoading(true);
     setError('');
     try {
-      const data = await authApi.login(credentials.username, credentials.password);
+      const data = await authApi.login(credentials.username.trim(), credentials.password.trim());
       setToken(data.token);
       localStorage.setItem('adminUser', data.username);
       navigate('/admin');

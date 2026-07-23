@@ -37,8 +37,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // ── Admin Credentials (loaded from .env — never hardcoded) ────
-const ADMIN_USERNAME = process.env.ADMIN_USERNAME;
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
+const ADMIN_USERNAME = (process.env.ADMIN_USERNAME || '').trim();
+const ADMIN_PASSWORD = (process.env.ADMIN_PASSWORD || '').trim();
 
 if (!ADMIN_USERNAME || !ADMIN_PASSWORD) {
   console.error('❌ ADMIN_USERNAME and ADMIN_PASSWORD must be set in .env');
@@ -124,7 +124,8 @@ app.delete('/api/upload', authenticateToken, async (req, res) => {
 
 // ── AUTH ──────────────────────────────────────────────────────
 app.post('/api/auth/login', (req, res) => {
-  const { username, password } = req.body;
+  const username = req.body.username?.trim();
+  const password = req.body.password?.trim();
   if (username !== ADMIN_USER.username || !bcrypt.compareSync(password, ADMIN_USER.passwordHash)) {
     return res.status(401).json({ error: 'Invalid credentials.' });
   }
